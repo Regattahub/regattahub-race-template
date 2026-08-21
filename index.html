@@ -1,0 +1,2593 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>RegattaFlow - __RACE_TITLE__</title>
+<!-- RegattaHub MASTER race template -->
+<!-- Race-specific values are injected by New Race Wizard -->
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: #2f241d;
+      background: #0d5e92;
+      min-height: 100vh;
+    }
+ textarea {
+    font-family: "Courier New", monospace;
+  }
+
+    .page {
+      max-width: 980px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+
+    .panel {
+      background: rgba(241, 244, 239, 0.92);
+      border-radius: 6px;
+      padding: 24px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.12);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border-radius: 6px;
+      margin-bottom: 14px;
+      min-height: auto;
+      background-color: #dfe5df;
+      border: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0.18;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 18px 18px 14px 18px;
+    }
+
+    .logo-row {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .event-logo {
+      max-width: 220px;
+      max-height: 110px;
+      display: block;
+    }
+
+    .app-title {
+      text-align: center;
+      font-size: 30px;
+      font-weight: 700;
+      margin: 6px 0 10px 0;
+      color: #2f241d;
+      line-height: 1.2;
+    }
+
+    .app-subtitle {
+      text-align: center;
+      font-size: 18px;
+      line-height: 1.5;
+      font-weight: 500;
+      max-width: 760px;
+      margin: 0 auto 14px auto;
+      color: #2f241d;
+    }
+
+    .hero-notes {
+      max-width: 760px;
+      margin: 0 auto;
+      padding-left: 20px;
+      font-size: 16px;
+      line-height: 1.6;
+    }
+
+    .hero-notes li {
+      margin-bottom: 10px;
+    }
+
+    .hero-notes a {
+      color: #0d5e92;
+      font-weight: 700;
+      text-decoration: underline;
+    }
+
+    .hero-notes a:hover {
+      opacity: 0.85;
+    }
+
+.section-title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  text-align: center;
+  font-size: 38px;
+  font-weight: 900;
+  margin: 22px auto 24px auto;
+  letter-spacing: 3px;
+  color: #0d5e92;
+}
+
+.section-title::before,
+.section-title::after {
+  content: "";
+  flex: 1;
+  max-width: 310px;
+  height: 3px;
+  background: #0d5e92;
+}
+
+    .section-subtitle {
+      text-align: center;
+      font-size: 13px;
+      margin-bottom: 8px;
+    }
+
+    .separator {
+      border-top: 1px solid #7a6c62;
+      margin: 8px 0 14px 0;
+    }
+
+    .notice-box {
+      border: 2px solid #8da170;
+      background: rgba(255, 255, 255, 0.45);
+      text-align: center;
+      padding: 0;
+      margin: 0 auto 14px auto;
+      max-width: 760px;
+    }
+
+    .notice-box .line1 {
+      font-size: 19px;
+      font-style: italic;
+      font-weight: 700;
+      padding: 8px 10px 4px;
+    }
+
+    .notice-box .line2 {
+      font-size: 18px;
+      font-style: italic;
+      color: #5f5147;
+      padding: 0 10px 8px;
+    }
+
+    .notice-box .line3 {
+      border-top: 1px solid #a9a08f;
+      font-size: 18px;
+      font-weight: 700;
+      color: #e53935;
+      letter-spacing: 4px;
+      padding: 6px 10px;
+    }
+
+    .notice-box .line4 {
+      font-size: 18px;
+      line-height: 1.4;
+      padding: 8px 18px 10px;
+    }
+
+    .notice-box .line5 {
+      border-top: 1px solid #a9a08f;
+      font-size: 14px;
+      font-style: italic;
+      color: #273c8f;
+      padding: 6px 10px;
+    }
+
+    .search-area {
+      max-width: 360px;
+      margin: 12px auto 8px auto;
+      text-align: center;
+    }
+
+    .search-area input {
+      width: 100%;
+      height: 42px;
+      padding: 8px 12px;
+      font-size: 20px;
+      text-align: center;
+      border: 1px solid #9b9b9b;
+      background: #fff;
+    }
+
+    .btn {
+      display: inline-block;
+      min-width: 210px;
+      height: 42px;
+      padding: 0 18px;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 16px;
+      color: #fff;
+      background: #4d8b1f;
+      margin-top: 6px;
+    }
+
+    .btn:hover {
+      opacity: 0.95;
+    }
+
+    .btn.secondary {
+      background: #6d6d6d;
+    }
+
+    .status {
+      text-align: center;
+      min-height: 28px;
+      margin: 12px 0 10px 0;
+      font-size: 14px;
+      font-weight: 700;
+      scroll-margin-top: 24px;
+    }
+
+    .status.loading {
+      color: #7a5a00 !important;
+    }
+
+    .spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 3px solid rgba(0, 0, 0, 0.15);
+      border-top: 3px solid #4d8b1f;
+      border-radius: 50%;
+      animation: spin 0.9s linear infinite;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+
+    @keyframes spin {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .result-card {
+      display: none;
+      max-width: 760px;
+      margin: 12px auto 16px auto;
+      border: 1px solid #bfb6aa;
+      background: rgba(255, 255, 255, 0.72);
+      padding: 14px;
+      scroll-margin-top: 24px;
+    }
+
+    .result-title {
+      font-weight: 700;
+      text-align: center;
+      font-size: 22px;
+      line-height: 1.5;
+    }
+
+    .actions {
+      display: none;
+      text-align: center;
+      margin-bottom: 16px;
+      scroll-margin-top: 24px;
+    }
+
+    .actions .btn {
+      margin: 4px 6px;
+    }
+
+    .form-wrap {
+      display: none;
+      margin-top: 14px;
+      scroll-margin-top: 24px;
+    }
+
+    #formFrame {
+      width: 100%;
+      height: 1450px;
+      border: none;
+      background: #fff;
+      border-radius: 6px;
+    }
+
+    @media (max-width: 768px) {
+      .page {
+        padding: 8px;
+      }
+
+      .panel {
+        padding: 12px;
+      }
+
+      .hero {
+        margin-bottom: 12px;
+      }
+
+      .hero-content {
+        padding: 10px 10px 12px 10px;
+      }
+
+      .logo-row {
+        justify-content: flex-start;
+        margin-bottom: 12px;
+      }
+
+      .event-logo {
+        max-width: 170px;
+        max-height: 85px;
+      }
+
+      .app-title {
+        font-size: 22px;
+        line-height: 1.25;
+        margin: 4px 0 8px 0;
+      }
+
+      .app-subtitle {
+        font-size: 15px;
+        line-height: 1.5;
+        margin: 0 auto 12px auto;
+      }
+
+      .hero-notes {
+        font-size: 15px;
+        line-height: 1.6;
+        padding-left: 16px;
+      }
+
+      .hero-notes li {
+        margin-bottom: 8px;
+      }
+.section-title {
+  font-size: 38px;
+  gap: 28px;
+  margin: 22px auto 24px auto;
+}
+
+.section-title::before,
+.section-title::after {
+  max-width: 310px;
+}
+      .section-subtitle {
+        font-size: 12px;
+        margin-bottom: 6px;
+      }
+
+      .separator {
+        margin: 6px 0 14px 0;
+      }
+
+      .notice-box .line1 {
+        font-size: 16px;
+      }
+
+      .notice-box .line2,
+      .notice-box .line3,
+      .notice-box .line4 {
+        font-size: 16px;
+      }
+
+      .notice-box .line5 {
+        font-size: 12px;
+      }
+
+      .search-area {
+        max-width: 100%;
+      }
+
+      .search-area input {
+        font-size: 22px;
+      }
+
+      .btn {
+        width: 100%;
+        min-width: 0;
+      }
+
+      .actions .btn {
+        margin: 4px 0;
+      }
+
+      #formFrame {
+        height: 1300px;
+      }
+    }
+    /* ΜΟΝΟ ΤΟ ΠΛΑΙΣΙΟ ΤΗΣ JOTFORM - ΦΑΡΔΥ ΚΑΙ ΚΕΝΤΡΑΡΙΣΜΕΝΟ */
+#formWrap,
+.form-wrap {
+  width: min(1120px, calc(100vw - 60px)) !important;
+  max-width: none !important;
+  margin: 22px auto 0 auto !important;
+  padding: 0 !important;
+  overflow: visible !important;
+  position: relative !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+}
+
+#formFrame {
+  display: block !important;
+  width: 100% !important;
+  max-width: none !important;
+  min-width: 0 !important;
+  height: 1700px !important;
+  border: 0 !important;
+  background: #fff !important;
+  border-radius: 6px !important;
+}
+
+@media screen and (max-width: 768px) {
+  #formWrap,
+  .form-wrap {
+    width: 100% !important;
+    max-width: 100% !important;
+    left: auto !important;
+    transform: none !important;
+    margin: 18px auto 0 auto !important;
+  }
+}
+
+/* ΚΑΘΑΡΗ ΟΘΟΝΗ ΜΟΝΟ ΓΙΑ ΤΗ JOTFORM */
+body.form-only .panel > *:not(#formWrap) {
+  display: none !important;
+}
+
+body.form-only .page {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+body.form-only .panel {
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+body.form-only #formWrap,
+body.form-only .form-wrap {
+  display: block !important;
+  width: min(1120px, calc(100vw - 60px)) !important;
+  max-width: none !important;
+  margin: 18px auto 0 auto !important;
+  padding: 0 !important;
+  overflow: visible !important;
+}
+
+body.form-only #formFrame {
+  display: block !important;
+  width: 100% !important;
+  height: 1700px !important;
+  border: 0 !important;
+  background: #fff !important;
+  border-radius: 6px !important;
+}
+  /* ΤΕΛΙΚΗ ΚΑΘΑΡΗ ΟΘΟΝΗ JOTFORM */
+html.form-only-html,
+body.form-only {
+  margin: 0 !important;
+  padding: 0 !important;
+  width: 100% !important;
+  height: 100vh !important;
+  overflow: hidden !important;
+}
+
+body.form-only .page {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  max-width: none !important;
+  height: 100vh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #0f6d95 !important;
+  z-index: 9998 !important;
+}
+
+body.form-only .panel > *:not(#formWrap) {
+  display: none !important;
+}
+
+body.form-only .panel {
+  width: 100vw !important;
+  max-width: none !important;
+  height: 100vh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+body.form-only #formWrap,
+body.form-only .form-wrap {
+  position: fixed !important;
+  top: 0 !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  display: block !important;
+  width: min(1120px, calc(100vw - 20px)) !important;
+  max-width: none !important;
+  height: 100vh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  z-index: 9999 !important;
+  border-radius: 0 !important;
+}
+
+body.form-only #formFrame {
+  display: block !important;
+  width: 100% !important;
+  height: 100vh !important;
+  border: 0 !important;
+  background: #fff !important;
+  border-radius: 0 !important;
+}  
+    /* ΔΙΟΡΘΩΣΗ ΕΜΦΑΝΙΣΗΣ ΣΕ ΚΙΝΗΤΟ */
+@media screen and (max-width: 768px) {
+
+  html,
+  body {
+    width: 100% !important;
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+  }
+
+  .page {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 6px !important;
+    margin: 0 !important;
+  }
+
+  .panel {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 10px !important;
+    margin: 0 auto !important;
+    overflow-x: hidden !important;
+  }
+
+  #crewScreen {
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 12px 6px !important;
+    margin: 12px auto !important;
+    overflow-x: hidden !important;
+    box-sizing: border-box !important;
+  }
+
+  #crewScreen input,
+  #crewScreen textarea,
+  #crewScreen select {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  #crewScreen textarea {
+    width: 100% !important;
+  }
+
+  #crewScreen table {
+    width: 100% !important;
+    max-width: 100% !important;
+    table-layout: fixed !important;
+    font-size: 12px !important;
+  }
+
+  #crewScreen th,
+  #crewScreen td {
+    padding: 5px 3px !important;
+    font-size: 12px !important;
+    word-break: break-word !important;
+    overflow-wrap: anywhere !important;
+  }
+
+  #crewScreen button,
+  #crewScreen .btn {
+    max-width: 100% !important;
+    font-size: 12px !important;
+    padding: 8px 6px !important;
+    white-space: normal !important;
+  }
+
+  #crewScreen h3 {
+    font-size: 18px !important;
+    line-height: 1.25 !important;
+  }
+
+  #formWrap,
+  .form-wrap {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 14px auto 0 auto !important;
+    left: auto !important;
+    transform: none !important;
+    overflow-x: hidden !important;
+  }
+
+  #formFrame {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+}
+
+    /* JOTFORM ΣΤΑΘΕΡΗ - ΚΛΕΙΔΩΜΑ SCROLL ΣΕΛΙΔΑΣ */
+html.jotform-open-html,
+body.jotform-open {
+  overflow: hidden !important;
+  height: 100vh !important;
+  max-height: 100vh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+body.jotform-open #formWrap,
+body.jotform-open .form-wrap {
+  position: fixed !important;
+  top: 0 !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: min(1120px, calc(100vw - 20px)) !important;
+  max-width: none !important;
+  height: 100vh !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden !important;
+  z-index: 999999 !important;
+  background: #fff !important;
+  border-radius: 0 !important;
+}
+
+body.jotform-open #formFrame {
+  display: block !important;
+  width: 100% !important;
+height: 100dvh !important;
+  border: 0 !important;
+  background: #fff !important;
+}
+    /* ΜΕΓΕΘΟΣ BANNER ΔΙΟΡΓΑΝΩΤΩΝ */
+#organizerBanner {
+  display: block !important;
+  width: 520px !important;
+  max-width: 92% !important;
+  height: auto !important;
+  max-height: none !important;
+  object-fit: contain !important;
+  margin: 20px auto 24px auto !important;
+}
+
+@media screen and (max-width: 768px) {
+  #organizerBanner {
+    display: block !important;
+    width: auto !important;
+    max-width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    object-fit: contain !important;
+    margin: 14px auto 18px auto !important;
+  }
+}
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="panel">
+
+      <div class="hero">
+        <div class="hero-bg" id="heroBg"></div>
+
+        <div class="hero-content">
+          <div class="logo-row">
+            <img id="eventLogo" class="event-logo" src="" alt="Regatta Entry Management System" />
+          </div>
+          <div id="organizerBannerBox" style="display:none; text-align:center; margin:8px auto 16px auto;">
+  <img id="organizerBanner" src="" alt="Διοργανωτής Όμιλος">
+</div>
+
+         <div class="app-title">ΔΗΛΩΣΗ ΣΥΜΜΕΤΟΧΗΣ</div>
+
+<div style="font-size:17px; font-weight:bold; text-align:center; margin:10px 0 18px 0;">
+  στον αγώνα ιστιοπλοΐας ανοικτής θάλασσας
+</div>
+
+<div id="introRaceTitle" style="font-size:38px; font-weight:900; color:#28308f; text-align:center; letter-spacing:2px; margin:20px 0 12px 0;"></div>
+
+<div style="text-align:center; margin:10px auto 16px auto;">
+<div id="introRaceDate" style="display:inline-block; background:rgba(255,255,255,0.65); padding:5px 10px; font-size:15px;">
+ Ημερομηνία διεξαγωγής αγώνα: <span id="raceDate"></span>
+</div>
+
+<div id="introSubmitExpiration" style="margin-top:6px; font-size:14px; font-weight:bold; color:#143a63;">
+ Λήξη υποβολής συμμετοχών: <span id="submitExpiration"></span>
+</div>
+</div>
+
+<div style="font-size:14px; line-height:1.5; max-width:620px; margin:16px auto 18px auto; text-align:center;">
+  Τα προσωπικά δεδομένα που καταχωρούνται στην φόρμα χρησιμοποιούνται αποκλειστικά
+  για τη διαχείριση της συμμετοχής στον αγώνα, σύμφωνα με την ισχύουσα νομοθεσία.
+</div>
+
+<label style="display:block; margin:18px auto 12px auto; padding:14px 16px; max-width:660px; background:#fff8d8; border:2px solid #d39b00; border-radius:8px; font-size:16px; font-weight:700; line-height:1.55; text-align:left; color:#2f241d;">
+  <input type="checkbox" id="acceptTermsCheck" style="width:22px; height:22px; margin-right:10px; vertical-align:middle;">
+  Έχω διαβάσει και αποδέχομαι την
+  <a href="https://docs.google.com/document/d/1aP3O1rDXvF34k3bMuvAyAGDb0cy8iMFkDiL-hEfUqxI/edit?tab=t.0" target="_blank" rel="noopener noreferrer" style="color:#0d5e92; font-weight:800; text-decoration:underline;">
+    Πολιτική Απορρήτου
+  </a>
+  και τους
+  <a href="https://docs.google.com/document/d/1S6QrNvvRq2drWWLfrsZxzOuM89Rf-lY0IznZcwzVUz4/edit?tab=t.0" target="_blank" rel="noopener noreferrer" style="color:#0d5e92; font-weight:800; text-decoration:underline;">
+    Όρους Χρήσης
+  </a>.
+</label>
+
+<ul class="hero-notes" id="eventNotes" style="display:none;"></ul>
+        </div>
+      </div>
+
+     
+
+      <div class="separator"></div>
+
+<div class="section-title" id="eventTitle" style="display:none;"></div>
+
+      <div class="notice-box">
+        <div class="line1">Η ΑΝΑΖΗΤΗΣΗ ΓΙΝΕΤΑΙ ΜΟΝΟ ΜΕ ΤΟΝ ΑΡΙΘΜΟ ΙΣΤΙΟΥ.</div>
+        <div class="line2">Παρακαλούμε συμπληρώστε το πεδίο αναζήτησης</div>
+        <div class="line3">ΠΡΟΣΟΧΗ</div>
+        <div class="line4" id="noticeYearText">
+          Για να συνεχίσετε θα πρέπει να έχετε πιστοποιητικό της Εθνικής Αρχής για το έτος __YEAR__.
+        </div>
+        <div class="line5" id="noticeInfoText">
+          Για πληροφορίες: ΓΡΑΜΜΑΤΕΙΑ ΑΓΩΝΑ ΤΗΛ.: __INFO_PHONE__
+        </div>
+      </div>
+
+      <div class="search-area">
+        <input type="text" id="sailNumber" placeholder="Αριθμός ιστίου" inputmode="numeric" />
+        <button class="btn" id="searchBtn" type="button">ΑΝΑΖΗΤΗΣΗ</button>
+      </div>
+
+      <div class="status" id="status"></div>
+
+      <div class="result-card" id="resultCard">
+        <div class="result-title" id="resultText"></div>
+      </div>
+
+      <div class="actions" id="actions"><button class="btn" id="continueBtn" type="button">ΚΑΤΑΧΩΡΗΣΗ ΠΛΗΡΩΜΑΤΟΣ</button>
+        <button class="btn secondary" id="newSearchBtn" type="button">ΝΕΑ ΑΝΑΖΗΤΗΣΗ</button>
+      </div>
+
+<div id="crewScreen" style="display:none; max-width:720px; margin:20px auto; border:1px solid #bfb6aa; padding:28px; background:white; text-align:center; border-radius:6px;">
+
+  <h3 style="text-align:center;"> ΚΑΤΑΧΩΡΗΣΗ ΣΤΟΙΧΕΙΩΝ ΠΛΗΡΩΜΑΤΟΣ</h3>
+
+  <div style="margin-bottom:20px;">
+<strong>ΚΥΒΕΡΝΗΤΗΣ</strong><br>
+<label style="font-weight:bold;">
+  Συμπληρώστε τον αριθμό αθλητικού δελτίου κυβερνήτη
+</label><br>
+
+<div style="display:flex; justify-content:center; align-items:center; gap:8px; margin-top:8px;">
+<input id="captainCardInput" type="text" inputmode="numeric" placeholder="Αρ. δελτίου" style="height:48px; width:220px; max-width:100%; font-size:18px; font-weight:700; text-align:center; color:#143a63; background:#fffdf2; border:2px solid #0d5e92; border-radius:7px; box-shadow:0 0 0 3px rgba(13,94,146,0.10); outline:none;">
+
+</div>
+<div style="text-align:center; margin:12px 0 14px 0;">
+  <button class="btn" type="button" onclick="lookupPerson(document.getElementById('captainCardInput'))">
+    ΑΝΑΖΗΤΗΣΗ
+  </button>
+</div>
+<div style="height:14px;"></div>
+
+<div class="personStatus" style="font-weight:bold; margin-bottom:6px;"></div>
+<table style="width:90%; max-width:620px; margin:8px auto 0 auto; border-collapse:collapse; font-size:16px;">
+  <tr>
+    <td style="border:1px solid #bfb6aa; padding:8px; font-weight:bold; width:120px; background:#f1f4ef;">Όνομα</td>
+    <td style="border:1px solid #bfb6aa; padding:8px;"><span class="name"></span></td>
+  </tr>
+  <tr>
+    <td style="border:1px solid #bfb6aa; padding:8px; font-weight:bold; background:#f1f4ef;">Όμιλος</td>
+    <td style="border:1px solid #bfb6aa; padding:8px;"><span class="club"></span></td>
+  </tr>
+  <tr>
+  <td style="border:1px solid #bfb6aa; padding:8px; font-weight:bold; background:#f1f4ef;">Αρ. Δελτίου</td>
+  <td style="border:1px solid #bfb6aa; padding:8px;"><span class="cardNumber"></span></td>
+</tr>
+</table>
+<div id="addSecondCaptainBox" style="text-align:center; margin:18px 0 4px 0;">
+  <button
+    id="addSecondCaptainBtn"
+    class="btn secondary"
+    type="button"
+    onclick="showSecondCaptain()"
+  >
+    + ΠΡΟΣΘΗΚΗ ΔΕΥΤΕΡΟΥ ΚΥΒΕΡΝΗΤΗ
+  </button>
+  </div>
+  <div
+  id="secondCaptainSection"
+  style="display:none; margin-top:22px; padding-top:20px; border-top:1px solid #c9c0b4;"
+>
+  <strong>ΚΥΒΕΡΝΗΤΗΣ 2</strong><br>
+
+  <label style="font-weight:bold;">
+    Συμπληρώστε τον αριθμό αθλητικού δελτίου δεύτερου κυβερνήτη
+  </label><br>
+
+  <div style="display:flex; justify-content:center; align-items:center; gap:8px; margin-top:8px;">
+    <input
+      id="secondCaptainCardInput"
+      type="text"
+      inputmode="numeric"
+      placeholder="Αρ. δελτίου"
+      style="height:48px; width:220px; max-width:100%; font-size:18px; font-weight:700; text-align:center; color:#143a63; background:#fffdf2; border:2px solid #0d5e92; border-radius:7px; box-shadow:0 0 0 3px rgba(13,94,146,0.10); outline:none;"
+    >
+  </div>
+
+  <div style="text-align:center; margin:12px 0 14px 0;">
+    <button
+      class="btn"
+      type="button"
+      onclick="lookupPerson(document.getElementById('secondCaptainCardInput'))"
+    >
+      ΑΝΑΖΗΤΗΣΗ
+    </button>
+  </div>
+
+  <div class="personStatus" style="font-weight:bold; margin-bottom:6px;"></div>
+
+  <table style="width:90%; max-width:620px; margin:8px auto 0 auto; border-collapse:collapse; font-size:16px;">
+    <tr>
+      <td style="border:1px solid #bfb6aa; padding:8px; font-weight:bold; width:120px; background:#f1f4ef;">Όνομα</td>
+      <td style="border:1px solid #bfb6aa; padding:8px;"><span class="name"></span></td>
+    </tr>
+    <tr>
+      <td style="border:1px solid #bfb6aa; padding:8px; font-weight:bold; background:#f1f4ef;">Όμιλος</td>
+      <td style="border:1px solid #bfb6aa; padding:8px;"><span class="club"></span></td>
+    </tr>
+    <tr>
+      <td style="border:1px solid #bfb6aa; padding:8px; font-weight:bold; background:#f1f4ef;">Αρ. Δελτίου</td>
+      <td style="border:1px solid #bfb6aa; padding:8px;"><span class="cardNumber"></span></td>
+    </tr>
+  </table>
+
+  <div style="text-align:center; margin:16px 0 4px 0;">
+    <button
+      class="btn secondary"
+      type="button"
+      onclick="hideSecondCaptain()"
+    >
+      ΑΦΑΙΡΕΣΗ ΔΕΥΤΕΡΟΥ ΚΥΒΕΡΝΗΤΗ
+    </button>
+  </div>
+    
+  </div>
+  </div>
+  </div>
+
+<div id="crewSection" style="display:none; width:100%; max-width:720px; box-sizing:border-box; margin:28px auto 0 auto; padding:24px 26px; background:#ffffff; border:1px solid #c9c0b4; border-radius:6px;">
+  <div style="text-align:center; font-size:18px; font-weight:bold; margin-bottom:10px;">
+  ΠΛΗΡΩΜΑ
+</div>
+
+  <div style="font-size:14px; margin:6px 0 10px 0;">
+    Μπορείτε είτε να βάλετε το/τα δελτία, στο πλαισιο που ακολουθεί, ένα-ένα, είτε να επικολλήσετε πολλούς αριθμούς μαζί και να πατήσετε <strong>ΑΝΑΖΗΤΗΣΗ ΟΛΩΝ</strong>.
+  </div>
+
+<textarea
+  id="bulkCrewCards"
+  placeholder="Αρ. δελτίων πληρώματος"
+  style="width:100%; height:105px; font-size:18px; font-weight:700; padding:12px; margin:8px 0 8px 0; font-family:Arial, sans-serif; color:#143a63; background:#fffdf2; border:2px solid #0d5e92; border-radius:7px; box-shadow:0 0 0 3px rgba(13,94,146,0.10); outline:none;"
+></textarea>
+
+ <div style="text-align:center; margin:14px 0 10px 0;">
+  <button class="btn" type="button" onclick="lookupBulkCrewCards()">
+    ΑΝΑΖΗΤΗΣΗ ΟΛΩΝ
+  </button>
+</div>
+
+  <div style="display:none; font-size:13px; color:#5f5147; margin-bottom:10px;">
+    Για μεμονωμένη προσθήκη, πατήστε το κουμπί <strong>+ Προσθήκη μέλους</strong>.
+  </div>
+
+<div id="crewList" style="width:100%; overflow-x:auto; -webkit-overflow-scrolling:touch;"></div>
+
+<div id="addCrewButtonBox" style="display:none; text-align:center; margin:12px 0 14px 0;">
+  <button class="btn secondary" type="button" onclick="addCrewMemberSafe()">
+    + Προσθήκη μέλους
+  </button>
+</div>
+
+<div id="wosrSelectBox" style="display:none; margin:16px auto 10px auto; padding:12px; border:1px solid #bfb6aa; background:#f8f8f8; max-width:620px; text-align:left;">
+  <div style="font-weight:bold; text-align:center; margin-bottom:10px;">
+    ΕΞΟΙΚΕΙΩΜΕΝΑ ΜΕΛΗ ΠΛΗΡΩΜΑΤΟΣ ΜΕ ΤΙΣ ΔΙΑΔΙΚΑΣΙΕΣ WS OSR 6.05.3
+    <div style="font-size:13px; line-height:1.45; color:#5f5147; background:#fffbe8; border:1px solid #d8c878; padding:8px 10px; margin:0 0 12px 0;">
+  Για τους αγώνες κατηγορίας 3 ή 4 κατά WS OSR απαιτείται τουλάχιστον δύο μέλη του πληρώματος να είναι εξοικειωμένα με:
+  <strong>Πρώτες Βοήθειες, αντιμετώπιση υποθερμίας, πνιγμού, καρδιοαναπνευστική αναζωογόνηση και σχετικά συστήματα επικοινωνιών.</strong>
+</div>
+  </div>
+
+  <label style="font-weight:bold;">
+    Μέλος πληρώματος (1):
+  </label>
+  <select id="wosrMember1" style="width:100%; height:38px; font-size:15px; margin:6px 0 12px 0;">
+    <option value="">Επιλέξτε ένα μέλος</option>
+  </select>
+
+  <label style="font-weight:bold;">
+    Μέλος πληρώματος (2):
+  </label>
+  <select id="wosrMember2" style="width:100%; height:38px; font-size:15px; margin-top:6px;">
+    <option value="">Επιλέξτε ένα μέλος</option>
+  </select>
+</div>
+
+  <div style="text-align:center; margin-top:20px;">
+    <button id="continueToJotformBtn" class="btn" type="button" onclick="continueToForm()" style="display:none;">ΣΥΝΕΧΕΙΑ ΣΤΗ ΦΟΡΜΑ</button>
+  </div>
+
+</div>
+
+       <div class="form-wrap" id="formWrap">
+        <iframe id="formFrame" src="" title="Καταχώριση συμμετοχής"></iframe>
+      </div>
+    </div>
+
+   <div id="entryFlowFooter" style="text-align:center; font-size:12px; line-height:1.5; color:rgba(255,255,255,0.88); margin:14px auto 18px auto; max-width:760px;">
+  <div>© __YEAR__ RegattaHub Race Management System</div>
+  <div>Powered by EntryFlow</div>
+  <div>Σύστημα διαχείρισης συμμετοχών σε αγώνες ιστιοπλοΐας.</div>
+  <div>
+    Επικοινωνία:
+    <a href="mailto:info.regattahub@gmail.com" style="color:rgba(255,255,255,0.95); font-weight:bold; text-decoration:underline;">
+      info.regattahub@gmail.com
+    </a>
+  </div>
+</div>
+
+  <script>
+    // =========================================
+    // 1. ΒΑΣΙΚΕΣ ΡΥΘΜΙΣΕΙΣ ΕΦΑΡΜΟΓΗΣ
+    // =========================================
+
+const SETTINGS_WEB_APP_URL =
+  "__SETTINGS_WEB_APP_URL__";
+
+// Το αρχείο ΣΥΜΜΕΤΟΧΕΣ / ΡΥΘΜΙΣΕΙΣ του συγκεκριμένου αγώνα.
+const DEFAULT_SETTINGS_SPREADSHEET_ID =
+  "__SETTINGS_SPREADSHEET_ID__";
+
+const PAGE_PARAMS = new URLSearchParams(window.location.search);
+const SETTINGS_SPREADSHEET_ID = String(
+  PAGE_PARAMS.get("settings") || DEFAULT_SETTINGS_SPREADSHEET_ID
+).trim();
+
+function makeSettingsEndpoint() {
+  const params = new URLSearchParams({
+    action: "settings",
+    settings: SETTINGS_SPREADSHEET_ID
+  });
+
+  return SETTINGS_WEB_APP_URL + "?" + params.toString();
+}
+
+const CONFIG = {
+  RACE_PREFIX: "__RACE_PREFIX__",
+  EVENT_TITLE: "__RACE_TITLE__",
+  RACE_DATE: "__RACE_DATE__",
+  SUBMIT_EXPIRATION: "__SUBMIT_EXPIRATION__",
+
+  SETTINGS_SPREADSHEET_ID: SETTINGS_SPREADSHEET_ID,
+  SETTINGS_ENDPOINT: makeSettingsEndpoint(),
+
+  OSR_RULE: "YES",
+
+  ORGANIZER_BANNER: "",
+  ORGANIZER_NAME: "",
+  ORGANIZER_SHORT_NAME: "",
+  ORGANIZER_EMAIL: "",
+  ORGANIZER_TEL: "",
+
+  SHOW_RACE_TITLE: "YES",
+
+  JOTFORM_FORM_ID: "__JOTFORM_FORM_ID__",
+  JOTFORM_BASE_URL: "__JOTFORM_FORM_URL__",
+
+  BOAT_LOOKUP_URL:
+    "__BOAT_LOOKUP_URL__",
+
+  PERSON_LOOKUP_URL:
+    "__PERSON_LOOKUP_URL__",
+
+  EVENT_LOGO:
+    "https://github.com/jsamartzis-png/logos/blob/main/logo_EntryFlow_removebg-preview.png?raw=true",
+
+  EVENT_BACKGROUND: "background.jpg",
+  YEAR: "__YEAR__",
+  INFO_PHONE: "__INFO_PHONE__"
+};
+
+const SETTINGS_CACHE_KEY =
+  "entryflow_race_settings_" + SETTINGS_SPREADSHEET_ID;
+
+function normalizeJotformUrl(url, formId) {
+  let value = String(url || "").trim();
+  const id = String(formId || "").replace(/\D/g, "");
+
+  if (!value && id) value = "https://form.jotform.com/" + id;
+  if (!value) return "";
+
+  // Η βάση πρέπει να μην περιέχει παλιά query parameters.
+  value = value.split("?")[0].replace(/\/+$/, "");
+  return value;
+}
+
+function extractGoogleDriveFileId(url) {
+  const value = String(url || "").trim();
+  if (!value) return "";
+
+  const patterns = [
+    /\/file\/d\/([a-zA-Z0-9_-]+)/,
+    /[?&]id=([a-zA-Z0-9_-]+)/,
+    /\/d\/([a-zA-Z0-9_-]+)(?:=|\/|$)/
+  ];
+
+  for (const pattern of patterns) {
+    const match = value.match(pattern);
+    if (match && match[1]) return match[1];
+  }
+
+  return "";
+}
+
+function getDriveImageCandidates(url) {
+  const value = String(url || "").trim();
+  if (!value) return [];
+
+  const fileId = extractGoogleDriveFileId(value);
+  if (!fileId) return [value];
+
+  return [
+    "https://drive.google.com/thumbnail?id=" + encodeURIComponent(fileId) + "&sz=w2000",
+    "https://drive.google.com/uc?export=view&id=" + encodeURIComponent(fileId)
+  ];
+}
+
+function showOrganizerBanner(url) {
+  const box = document.getElementById("organizerBannerBox");
+  const image = document.getElementById("organizerBanner");
+  if (!box || !image) return;
+
+  const candidates = getDriveImageCandidates(url);
+  if (!candidates.length) {
+    box.style.display = "none";
+    image.removeAttribute("src");
+    return;
+  }
+
+  let candidateIndex = 0;
+  image.referrerPolicy = "no-referrer";
+  image.onload = function () {
+    box.style.display = "block";
+  };
+  image.onerror = function () {
+    candidateIndex += 1;
+    if (candidateIndex < candidates.length) {
+      image.src = candidates[candidateIndex];
+    } else {
+      box.style.display = "none";
+      image.removeAttribute("src");
+    }
+  };
+
+  image.src = candidates[candidateIndex];
+}
+
+function applyOsrRule() {
+  const box = document.getElementById("wosrSelectBox");
+  if (!box) return;
+
+  const rule = String(CONFIG.OSR_RULE || "NONE").trim().toUpperCase();
+
+  if (
+    rule === "NONE" ||
+    rule === "NO" ||
+    rule === "OXI" ||
+    rule === "ΟΧΙ" ||
+    rule === ""
+  ) {
+    box.style.display = "none";
+
+    box.querySelectorAll("select").forEach(function (select) {
+      select.value = "";
+      select.removeAttribute("required");
+    });
+
+    return;
+  }
+
+  box.style.display = "block";
+}
+
+function renderRaceSettings() {
+  const title = String(CONFIG.EVENT_TITLE || "").trim();
+  const raceDate = String(CONFIG.RACE_DATE || "").trim();
+  const expiration = String(CONFIG.SUBMIT_EXPIRATION || "").trim();
+
+  const yearMatch = (title + " " + raceDate).match(/\b20\d{2}\b/);
+  if (yearMatch) CONFIG.YEAR = yearMatch[0];
+
+  const raceTitleEl = document.getElementById("eventTitle");
+  if (raceTitleEl) raceTitleEl.textContent = title;
+
+  const introRaceTitleEl = document.getElementById("introRaceTitle");
+  if (introRaceTitleEl) {
+    introRaceTitleEl.textContent = title;
+    const showTitle = String(CONFIG.SHOW_RACE_TITLE || "YES").trim().toUpperCase();
+    introRaceTitleEl.style.display =
+      showTitle === "NO" || showTitle === "OXI" || showTitle === "ΟΧΙ"
+        ? "none"
+        : "block";
+  }
+
+  const raceDateEl = document.getElementById("raceDate");
+  if (raceDateEl) raceDateEl.textContent = raceDate;
+
+  const expirationEl = document.getElementById("submitExpiration");
+  if (expirationEl) expirationEl.textContent = expiration;
+
+  const heroBg = document.getElementById("heroBg");
+  if (heroBg) {
+    heroBg.style.backgroundImage = CONFIG.EVENT_BACKGROUND
+      ? "url('" + CONFIG.EVENT_BACKGROUND + "')"
+      : "none";
+  }
+
+  const noticeYear = document.getElementById("noticeYearText");
+  if (noticeYear) {
+    noticeYear.textContent =
+      "Για να συνεχίσετε θα πρέπει να έχετε πιστοποιητικό της Εθνικής Αρχής για το έτος " +
+      CONFIG.YEAR +
+      ".";
+  }
+
+  const noticeInfo = document.getElementById("noticeInfoText");
+  if (noticeInfo) {
+    const phone = CONFIG.ORGANIZER_TEL || CONFIG.INFO_PHONE || "";
+    noticeInfo.textContent = phone
+      ? "Για πληροφορίες: ΓΡΑΜΜΑΤΕΙΑ ΑΓΩΝΑ ΤΗΛ.: " + phone
+      : "";
+  }
+
+  showOrganizerBanner(CONFIG.ORGANIZER_BANNER);
+  applyOsrRule();
+  document.title = title ? "RegattaFlow - " + title : "RegattaFlow";
+}
+
+function applyRaceSettingsData(data) {
+  if (!data || data.success === false) return false;
+
+  CONFIG.RACE_PREFIX = data.racePrefix || CONFIG.RACE_PREFIX;
+  CONFIG.EVENT_TITLE = data.raceTitle || CONFIG.EVENT_TITLE;
+  CONFIG.RACE_DATE = data.raceDate || CONFIG.RACE_DATE;
+  CONFIG.SUBMIT_EXPIRATION =
+    data.submitExpiration || CONFIG.SUBMIT_EXPIRATION;
+  CONFIG.ORGANIZER_BANNER =
+    data.organizerBanner || CONFIG.ORGANIZER_BANNER;
+  CONFIG.ORGANIZER_NAME = data.organizerName || CONFIG.ORGANIZER_NAME;
+  CONFIG.ORGANIZER_SHORT_NAME =
+    data.organizerShortName || CONFIG.ORGANIZER_SHORT_NAME;
+  CONFIG.ORGANIZER_EMAIL = data.organizerEmail || CONFIG.ORGANIZER_EMAIL;
+  CONFIG.ORGANIZER_TEL = data.organizerTel || CONFIG.ORGANIZER_TEL;
+  CONFIG.INFO_PHONE = CONFIG.ORGANIZER_TEL || CONFIG.INFO_PHONE;
+  CONFIG.SHOW_RACE_TITLE = String(
+    data.showRaceTitle || CONFIG.SHOW_RACE_TITLE || "YES"
+  ).trim().toUpperCase();
+  CONFIG.OSR_RULE = String(
+    data.osrRule || CONFIG.OSR_RULE || "YES"
+  ).trim().toUpperCase();
+
+  const jotformId =
+    data.jotformFormId || data.jotformId || CONFIG.JOTFORM_FORM_ID;
+  const jotformUrl =
+    data.jotformFormUrl || data.jotformUrl || CONFIG.JOTFORM_BASE_URL;
+
+  CONFIG.JOTFORM_FORM_ID = String(jotformId || "").trim();
+  CONFIG.JOTFORM_BASE_URL = normalizeJotformUrl(
+    jotformUrl,
+    CONFIG.JOTFORM_FORM_ID
+  );
+
+  renderRaceSettings();
+  return true;
+}
+
+function readCachedRaceSettings() {
+  try {
+    const raw = localStorage.getItem(SETTINGS_CACHE_KEY);
+    if (!raw) return null;
+
+    const cached = JSON.parse(raw);
+    if (!cached || !cached.data) return null;
+
+    // Το cache κάνει την αρχική εμφάνιση άμεση. Το φρέσκο αρχείο
+    // ζητείται πάντοτε αμέσως μετά και αντικαθιστά το cache.
+    return cached.data;
+  } catch (error) {
+    console.warn("Δεν ήταν δυνατή η ανάγνωση cache ρυθμίσεων:", error);
+    return null;
+  }
+}
+
+function saveCachedRaceSettings(data) {
+  try {
+    localStorage.setItem(
+      SETTINGS_CACHE_KEY,
+      JSON.stringify({ savedAt: Date.now(), data: data })
+    );
+  } catch (error) {
+    console.warn("Δεν ήταν δυνατή η αποθήκευση cache ρυθμίσεων:", error);
+  }
+}
+
+function loadJsonp(url, timeoutMs) {
+  return new Promise(function (resolve, reject) {
+    const callbackName =
+      "__entryflowSettings_" +
+      Date.now() +
+      "_" +
+      Math.random().toString(36).slice(2);
+    const script = document.createElement("script");
+    let completed = false;
+
+    function cleanup() {
+      if (script.parentNode) script.parentNode.removeChild(script);
+      try {
+        delete window[callbackName];
+      } catch (_) {
+        window[callbackName] = undefined;
+      }
+    }
+
+    const timer = window.setTimeout(function () {
+      if (completed) return;
+      completed = true;
+      cleanup();
+      reject(new Error("Χρονικό όριο φόρτωσης ρυθμίσεων."));
+    }, timeoutMs || 10000);
+
+    window[callbackName] = function (data) {
+      if (completed) return;
+      completed = true;
+      window.clearTimeout(timer);
+      cleanup();
+      resolve(data);
+    };
+
+    script.async = true;
+    script.referrerPolicy = "no-referrer";
+    script.onerror = function () {
+      if (completed) return;
+      completed = true;
+      window.clearTimeout(timer);
+      cleanup();
+      reject(new Error("Αποτυχία φόρτωσης του endpoint ρυθμίσεων."));
+    };
+
+    const separator = url.includes("?") ? "&" : "?";
+    script.src =
+      url +
+      separator +
+      "callback=" +
+      encodeURIComponent(callbackName) +
+      "&_=" +
+      Date.now();
+
+    document.head.appendChild(script);
+  });
+}
+
+async function loadRaceSettingsFromSheet() {
+  // Οι fallback τιμές του αγώνα εμφανίζονται αμέσως, πριν από το δίκτυο.
+  renderRaceSettings();
+
+  const cached = readCachedRaceSettings();
+  if (cached) applyRaceSettingsData(cached);
+
+  if (!CONFIG.SETTINGS_ENDPOINT || !CONFIG.SETTINGS_SPREADSHEET_ID) {
+    return cached || null;
+  }
+
+  try {
+    const data = await loadJsonp(CONFIG.SETTINGS_ENDPOINT, 10000);
+    if (applyRaceSettingsData(data)) saveCachedRaceSettings(data);
+    return data;
+  } catch (firstError) {
+    console.warn("1η προσπάθεια ρυθμίσεων απέτυχε:", firstError);
+
+    // Μία δεύτερη προσπάθεια καλύπτει προσωρινά προβλήματα redirect/cache.
+    try {
+      const data = await loadJsonp(CONFIG.SETTINGS_ENDPOINT, 10000);
+      if (applyRaceSettingsData(data)) saveCachedRaceSettings(data);
+      return data;
+    } catch (secondError) {
+      console.warn(
+        "Οι ΡΥΘΜΙΣΕΙΣ δεν φορτώθηκαν από το δίκτυο. Χρησιμοποιούνται οι άμεσες/αποθηκευμένες τιμές:",
+        secondError
+      );
+      return cached || null;
+    }
+  }
+}
+
+const settingsReadyPromise = loadRaceSettingsFromSheet();
+const BOAT_LOOKUP_URL = CONFIG.BOAT_LOOKUP_URL;
+const PERSON_LOOKUP_URL = CONFIG.PERSON_LOOKUP_URL;
+const EVENT_LOGO = CONFIG.EVENT_LOGO;
+
+// Για δοκιμή το αφήνουμε ανοικτό.
+// Όταν θέλεις να κλείσει ο αγώνας, άλλαξε το σε false.
+const FORM_OPEN = true;
+const CLOSED_MESSAGE = "Ο αγώνας έχει κλείσει και δεν δέχεται πλέον συμμετοχές.";
+
+function getStorageKey() {
+  const suffix = String(
+    CONFIG.RACE_PREFIX || CONFIG.SETTINGS_SPREADSHEET_ID || "race"
+  )
+    .trim()
+    .replace(/[^a-zA-Z0-9Α-Ωα-ω_-]+/g, "_");
+
+  return "entryflow_" + suffix + "_crew_state";
+}
+
+const EVENT_NOTES = [
+  "Με τη χρήση αυτής της εφαρμογής, μπορείτε εύκολα να υποβάλετε τα απαραίτητα έγγραφα και να ολοκληρώσετε την πληρωμή του παραβόλου (όλα σε ένα σημείο).",
+  'Διαβάστε την <a href="https://docs.google.com/document/d/1aP3O1rDXvF34k3bMuvAyAGDb0cy8iMFkDiL-hEfUqxI/edit?tab=t.0" target="_blank" rel="noopener noreferrer">Πολιτική Απορρήτου</a> και τους <a href="https://docs.google.com/document/d/1S6QrNvvRq2drWWLfrsZxzOuM89Rf-lY0IznZcwzVUz4/edit?tab=t.0" target="_blank" rel="noopener noreferrer">Όρους Χρήσης</a>.'
+];
+
+    // =========================================
+    // 2. UNIQUE NAMES ΤΗΣ JOTFORM
+    // =========================================
+
+    const fieldNames = {
+      race_title: "typeA296",
+      yacht_name: "age",
+      sail_letters: "input298",
+      sail_number: "typeA48",
+      yacht_type: "age13",
+      club: "input17",
+      aph: "APH",
+      cert_date: "input15",
+      cert_type: "typeA490",
+      saronic_cat: "input418",
+      aph_club: "typeA419",
+      aph_intl: "typeA416",
+      aph_ns: "typeA417",
+      aph_dh: "typeA412",
+      last_certificate: "typeA426",
+      special_cat: "typeA437",
+      aph_initial: "typeA439",
+      dynamic_allowance: "dynamic_allowance",
+      orc_class_check: "orc_class_check",
+      captain_name: "typeA93",
+captain_club: "input33",
+captain_card: "input55",
+crew_text: "input514",
+crew_1_name: "crew1_name",
+crew_1_card: "crew1_card",
+crew_1_club: "crew1_club",
+
+crew_2_name: "crew2_name",
+crew_2_card: "crew2_card",
+crew_2_club: "crew2_club",
+
+crew_3_name: "crew3_name",
+crew_3_card: "crew3_card",
+crew_3_club: "crew3_club",
+
+crew_4_name: "crew4_name",
+crew_4_card: "crew4_card",
+crew_4_club: "crew4_club",
+
+crew_5_name: "crew5_name",
+crew_5_card: "crew5_card",
+crew_5_club: "crew5_club",
+
+crew_6_name: "crew6_name",
+crew_6_card: "crew6_card",
+crew_6_club: "crew6_club",
+
+crew_7_name: "crew7_name",
+crew_7_card: "crew7_card",
+crew_7_club: "crew7_club",
+
+crew_8_name: "crew8_name",
+crew_8_card: "crew8_card",
+crew_8_club: "crew8_club",
+
+crew_9_name: "crew9_name",
+crew_9_card: "crew9_card",
+crew_9_club: "crew9_club",
+
+crew_10_name: "crew10_name",
+crew_10_card: "crew10_card",
+crew_10_club: "crew10_club",
+
+crew_preview: "crew_preview",
+crew_json: "crew_json",
+
+crew_pdf_aa: "crewpdf_aa",
+crew_pdf_name: "crewpdf_name",
+crew_pdf_card: "crewpdf_card",
+crew_pdf_club: "crewpdf_club",
+
+wosr_member_1: "wosr_member_1",
+wosr_member_2: "wosr_member_2"
+    };
+
+    const sailInput = document.getElementById("sailNumber");
+    const searchBtn = document.getElementById("searchBtn");
+    const continueBtn = document.getElementById("continueBtn");
+    const newSearchBtn = document.getElementById("newSearchBtn");
+    const statusBox = document.getElementById("status");
+    const resultCard = document.getElementById("resultCard");
+    const actions = document.getElementById("actions");
+    const formWrap = document.getElementById("formWrap");
+    const formFrame = document.getElementById("formFrame");
+
+    let lastFoundData = null;
+
+    function scrollToElement(el) {
+      if (!el) return;
+      setTimeout(() => {
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 150);
+    }
+    function setupHero() {
+      document.getElementById("eventLogo").src = EVENT_LOGO;
+      renderRaceSettings();
+
+      const notesList = document.getElementById("eventNotes");
+      notesList.innerHTML = "";
+
+      EVENT_NOTES.forEach(function (note) {
+        const li = document.createElement("li");
+        li.innerHTML = note;
+        notesList.appendChild(li);
+      });
+    }
+
+    function setStatus(message, isError = false, isLoading = false, shouldScroll = false) {
+      if (isLoading) {
+        statusBox.classList.add("loading");
+        statusBox.innerHTML = '<span class="spinner"></span>' + (message || "");
+        statusBox.style.color = "#7a5a00";
+        if (shouldScroll) scrollToElement(statusBox);
+        return;
+      }
+
+      statusBox.classList.remove("loading");
+      statusBox.textContent = message || "";
+      statusBox.style.color = isError ? "#b00020" : "#2e7d32";
+
+      if (shouldScroll && message) {
+        scrollToElement(statusBox);
+      }
+    }
+
+    function showResult(data) {
+      const yachtName = data.yacht_name || "";
+      const sailNo = ((data.sail_letters || "") + (data.sail_number || "")).trim() || "";
+
+      document.getElementById("resultText").innerHTML =
+        'Βρέθηκαν τα στοιχεία του σκάφους:<br><strong>' + yachtName + ' με αριθμό ιστίου: ' + sailNo + '</strong>';
+
+      resultCard.style.display = "block";
+      actions.style.display = "block";
+
+      scrollToElement(resultCard);
+    }
+
+    function hideResult() {
+      resultCard.style.display = "none";
+      actions.style.display = "none";
+      formWrap.style.display = "none";
+      formFrame.src = "";
+      lastFoundData = null;
+    }
+
+    
+function formatForJotformNumber(v) {
+  if (v === null || typeof v === "undefined" || v === "") return "";
+
+  let str = String(v).trim();
+
+  // καθάρισε περίεργες τιμές
+  str = str.replace(",", ".");
+
+  let num = parseFloat(str);
+
+  if (isNaN(num)) return "";
+
+  return num.toFixed(3).replace(".", ",");
+}
+function getCrewPdfRows() {
+  const rows = [];
+  const crewRows = document.querySelectorAll("#crewTable tbody tr");
+
+  crewRows.forEach((tr) => {
+    const card = String(tr.querySelector("input")?.value || "").trim();
+    const name = String(tr.querySelector(".name")?.innerText || "").trim();
+    const club = String(tr.querySelector(".club")?.innerText || "").trim();
+
+    if (name && card) {
+      rows.push({ name, card, club });
+    }
+  });
+
+  return rows;
+}
+
+function buildPrefillUrl(data) {
+  const params = new URLSearchParams();
+  // ΡΥΘΜΙΣΕΙΣ ΑΓΩΝΑ -> JOTFORM
+  // Ορισμένα πεδία της Jotform διατηρούν παλαιότερα Unique Names
+  // διατηρούν ακόμη τα παλιά Unique Names (input289, input290, input532 κ.λπ.).
+  // Στέλνουμε και το πραγματικό Unique Name και το καθαρό alias για συμβατότητα.
+  params.set(fieldNames.race_title, CONFIG.EVENT_TITLE || "");
+  params.set("race_title", CONFIG.EVENT_TITLE || "");
+
+  params.set("input289", CONFIG.RACE_DATE || "");
+  params.set("race_date", CONFIG.RACE_DATE || "");
+
+  params.set("input290", CONFIG.SUBMIT_EXPIRATION || "");
+  params.set("submit_expiration", CONFIG.SUBMIT_EXPIRATION || "");
+
+  params.set("organizer_banner", CONFIG.ORGANIZER_BANNER || "");
+
+  params.set("input532", CONFIG.ORGANIZER_NAME || "");
+  params.set("organizer_name", CONFIG.ORGANIZER_NAME || "");
+
+  // Το πεδίο 533 έχει σήμερα Unique Name '_' στη Jotform.
+  // Κρατάμε και input533/organizer_short_name ως ασφαλή aliases.
+  params.set("_", CONFIG.ORGANIZER_SHORT_NAME || "");
+  params.set("input533", CONFIG.ORGANIZER_SHORT_NAME || "");
+  params.set("organizer_short_name", CONFIG.ORGANIZER_SHORT_NAME || "");
+
+  params.set("organizer_email", CONFIG.ORGANIZER_EMAIL || "");
+  params.set("organizer_tel", CONFIG.ORGANIZER_TEL || "");
+  
+  params.set(fieldNames.yacht_name, data.yacht_name || "");
+  params.set(fieldNames.sail_letters, data.sail_letters || "");
+  params.set(fieldNames.sail_number, data.sail_number || "");
+  params.set(fieldNames.yacht_type, data.yacht_type || "");
+  params.set(fieldNames.club, data.club || "");
+
+  params.set(fieldNames.aph, formatForJotformNumber(data.aph_initial));
+  params.set(fieldNames.cert_date, data.certdate_last || "");
+  params.set(fieldNames.cert_type, data.initial_category || data.Initial_Category || "");
+  params.set(fieldNames.saronic_cat, "");
+  params.set(fieldNames.aph_club, formatForJotformNumber(data.aph_club));
+  params.set(fieldNames.aph_intl, formatForJotformNumber(data.aph_intl));
+  params.set(fieldNames.aph_ns, formatForJotformNumber(data.aph_ns));
+  params.set(fieldNames.aph_dh, formatForJotformNumber(data.aph_dh));
+  params.set(fieldNames.last_certificate, data.certdate_last || "");
+  params.set(fieldNames.special_cat, data.special_category || "");
+  params.set(fieldNames.aph_initial, formatForJotformNumber(data.aph_initial));
+  params.set(fieldNames.dynamic_allowance, formatForJotformNumber(data.dynamic_allowance));
+  params.set(fieldNames.orc_class_check, data.orc_class_check || "");
+
+  params.set(fieldNames.captain_name, document.querySelector("#crewScreen .name")?.innerText || "");
+  params.set(fieldNames.captain_club, document.querySelector("#crewScreen .club")?.innerText || "");
+  params.set(fieldNames.captain_card, document.querySelector("#crewScreen input")?.value || "");
+  const secondCaptainSection = document.getElementById("secondCaptainSection");
+  const secondCaptainIsActive =
+  secondCaptainSection && secondCaptainSection.style.display !== "none";
+
+params.set(
+  "second_captain_name",
+  secondCaptainIsActive
+    ? secondCaptainSection.querySelector(".name")?.innerText || ""
+    : ""
+);
+
+params.set(
+  "second_captain_card",
+  secondCaptainIsActive
+    ? document.getElementById("secondCaptainCardInput")?.value || ""
+    : ""
+);
+
+params.set(
+  "second_captain_club",
+  secondCaptainIsActive
+    ? secondCaptainSection.querySelector(".club")?.innerText || ""
+    : ""
+);
+ const crewTextForPreview = buildCrewTextForPdf();
+ params.set(fieldNames.crew_text, crewTextForPreview);
+
+ // Το ίδιο κείμενο το στέλνουμε και με καθαρό Unique Name,
+ // ώστε να μπορεί να γεμίσει ένα πεδίο Long Text με Unique Name: crew_text
+ params.set("crew_text", crewTextForPreview);
+
+  const crewPdfRows = getCrewPdfRows();
+const crewPdfAA = [];
+const crewPdfName = [];
+const crewPdfCard = [];
+const crewPdfClub = [];
+
+crewPdfRows.forEach((row, index) => {
+  crewPdfAA.push(String(index + 1));
+  crewPdfName.push(cutForPdf(row.name || "", 24));
+  crewPdfCard.push(row.card || "");
+  crewPdfClub.push(cutForPdf(shortClubName(row.club || ""), 28));
+});
+
+params.set(fieldNames.crew_pdf_aa, crewPdfAA.join("\n"));
+params.set(fieldNames.crew_pdf_name, crewPdfName.join("\n"));
+params.set(fieldNames.crew_pdf_card, crewPdfCard.join("\n"));
+params.set(fieldNames.crew_pdf_club, crewPdfClub.join("\n"));
+const wosr1Value = document.getElementById("wosrMember1")?.value || "";
+const wosr2Value = document.getElementById("wosrMember2")?.value || "";
+const captainState = getCaptainState();
+
+function getWosrName(value) {
+  if (value === "captain") {
+    return captainState.name || "";
+  }
+
+  if (value === "second_captain") {
+    const secondCaptainState = getSecondCaptainState();
+    return secondCaptainState.name || "";
+  }
+
+  const index = parseInt(value, 10) - 1;
+  return crewPdfRows[index]?.name || "";
+}
+params.set(fieldNames.wosr_member_1, getWosrName(wosr1Value));
+params.set(fieldNames.wosr_member_2, getWosrName(wosr2Value));
+  
+for (let i = 1; i <= 10; i++) {
+  const row = crewPdfRows[i - 1] || {};
+
+  params.set(fieldNames[`crew_${i}_name`], row.name || "");
+  params.set(fieldNames[`crew_${i}_card`], row.card || "");
+  params.set(fieldNames[`crew_${i}_club`], shortClubName(row.club || ""));
+}
+
+let crewPreview = "";
+
+crewPdfRows.forEach((row, index) => {
+  crewPreview +=
+    (index + 1) + ". " +
+    (row.name || "") + " | " +
+    (row.card || "") + " | " +
+    shortClubName(row.club || "") +
+    "\n";
+});
+
+params.set(fieldNames.crew_preview, crewTextForPreview);
+
+// Κρατάμε και όλο το πλήρωμα σε JSON για επόμενη φάση/πίνακα μέσα στη Jotform
+params.set(fieldNames.crew_json, JSON.stringify(
+  crewPdfRows.map((row) => ({
+    name: row.name || "",
+    card: row.card || "",
+    club: shortClubName(row.club || "")
+  }))
+));
+
+  const jotformBaseUrl = normalizeJotformUrl(
+    CONFIG.JOTFORM_BASE_URL,
+    CONFIG.JOTFORM_FORM_ID
+  );
+
+  if (!jotformBaseUrl) {
+    throw new Error("Δεν έχει οριστεί JOTFORM_FORM_URL ή JOTFORM_FORM_ID στις ΡΥΘΜΙΣΕΙΣ.");
+  }
+
+  return jotformBaseUrl + "?" + Array.from(params.entries())
+    .map(([key, value]) => encodeURIComponent(key) + "=" + encodeURIComponent(value))
+    .join("&");
+}
+
+function shortClubName(club) {
+  const text = String(club || "")
+    .replace(/\+/g, " ")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toUpperCase()
+    .replace(/\s+/g, " ")
+    .trim();
+
+  const cleanAcronym = value =>
+    value.replace(/[^A-ZΑ-Ω]/g, "");
+
+  const isAcronym = value => {
+    const trimmed = value.trim();
+    const cleaned = cleanAcronym(trimmed);
+
+    if (cleaned.length < 2 || cleaned.length > 10) {
+      return false;
+    }
+
+    return (
+      !/\s/.test(trimmed) ||
+      trimmed
+        .split(/\s+/)
+        .every(part => /^[A-ZΑ-Ω]\.?$/.test(part))
+    );
+  };
+
+  const parentheses = [...text.matchAll(/\(([^()]*)\)/g)];
+
+  for (const match of parentheses) {
+    if (isAcronym(match[1])) {
+      return cleanAcronym(match[1]);
+    }
+  }
+
+  const dashMatch = text.match(
+    /[-–—]\s*([A-ZΑ-Ω.]{2,20})\s*$/
+  );
+
+  if (dashMatch && isAcronym(dashMatch[1])) {
+    return cleanAcronym(dashMatch[1]);
+  }
+
+  if (isAcronym(text)) {
+    return cleanAcronym(text);
+  }
+
+  const words = text
+    .replace(/\([^)]*\)/g, " ")
+    .replace(/[-–—]/g, " ")
+    .replace(/[^A-ZΑ-Ω]+/g, " ")
+    .trim()
+    .split(/\s+/)
+    .filter(Boolean);
+
+  return words
+    .map(word => word.charAt(0))
+    .join("");
+}
+
+function cutForPdf(value, maxLength) {
+  let text = String(value || "")
+    .replace(/\+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
+  if (text.length <= maxLength) return text;
+
+  return text.substring(0, maxLength - 1).trim() + "…";
+}    
+
+function buildCrewTextForPdf() {
+  function cleanText(v) {
+    return String(v || "").replace(/\+/g, " ").trim();
+  }
+
+ function padRight(text, width) {
+  text = cleanText(text);
+  return text.length >= width
+    ? text.substring(0, width - 1) + "…"
+    : text.padEnd(width, " ");
+}
+
+  function centerText(text, width) {
+    text = cleanText(text);
+
+    if (text.length >= width) {
+      return text.substring(0, width);
+    }
+
+    const totalSpaces = width - text.length;
+    const leftSpaces = Math.floor(totalSpaces / 2);
+    const rightSpaces = totalSpaces - leftSpaces;
+
+    return " ".repeat(leftSpaces) + text + " ".repeat(rightSpaces);
+  }
+
+const AA_COL_WIDTH = 3;
+const NAME_COL_WIDTH = 34;
+const CARD_COL_WIDTH = 10;
+const CLUB_COL_WIDTH = 36;
+const SEP = "  ";
+
+  const totalWidth =
+    AA_COL_WIDTH +
+    NAME_COL_WIDTH +
+    CARD_COL_WIDTH +
+    CLUB_COL_WIDTH +
+    SEP.length * 3;
+
+  let text = "";
+
+  text += centerText("Α/Α", AA_COL_WIDTH) + SEP;
+  text += centerText("ΟΝΟΜΑΤΕΠΩΝΥΜΟ", NAME_COL_WIDTH) + SEP;
+  text += centerText("ΑΡ. ΔΕΛΤΙΟΥ", CARD_COL_WIDTH) + SEP;
+  text += centerText("ΟΜΙΛΟΣ", CLUB_COL_WIDTH) + "\n";
+
+  text += "─".repeat(totalWidth) + "\n";
+
+  const crewRows = document.querySelectorAll("#crewTable tbody tr");
+
+  let aa = 1;
+
+  crewRows.forEach((tr) => {
+    const name = cleanText(tr.querySelector(".name")?.innerText);
+    const club = shortClubName(tr.querySelector(".club")?.innerText);
+    const card = cleanText(tr.querySelector("input")?.value);
+
+    if (name && card) {
+      text += centerText(aa, AA_COL_WIDTH) + SEP;
+      text += padRight(name, NAME_COL_WIDTH) + SEP;
+      text += centerText(card, CARD_COL_WIDTH) + SEP;
+      text += padRight(club, CLUB_COL_WIDTH) + "\n";
+
+      aa++;
+    }
+  });
+
+  return text.trimEnd();
+}
+
+    async function searchBoat() {
+      const acceptTerms = document.getElementById("acceptTermsCheck");
+
+if (acceptTerms && !acceptTerms.checked) {
+  alert("Παρακαλούμε αποδεχθείτε την Πολιτική Απορρήτου και τους Όρους Χρήσης για να συνεχίσετε.");
+  acceptTerms.scrollIntoView({ behavior: "smooth", block: "center" });
+  return;
+}
+      const sailNumber = sailInput.value.trim();
+
+      if (!sailNumber) {
+        setStatus("Παρακαλώ πληκτρολόγησε αριθμό ιστίου.", true, false, true);
+        hideResult();
+        return;
+      }
+
+      setStatus("Γίνεται αναζήτηση...", false, true, true);
+      hideResult();
+
+      try {
+      await boatLookupWarmup;
+ const json = await loadJsonp(
+  BOAT_LOOKUP_URL +
+  "?action=entryLookup&id=" +
+  encodeURIComponent(sailNumber),
+  10000
+);
+        if (!json.ok) {
+          setStatus("Σφάλμα στο σύστημα αναζήτησης.", true, false, true);
+          return;
+        }
+
+        if (!json.found) {
+          setStatus("Δεν βρέθηκαν στοιχεία για αυτόν τον αριθμό ιστίου.", true, false, true);
+          return;
+        }
+
+      lastFoundData = json.data || {};
+console.log("DATA ΠΟΥ ΗΡΘΑΝ:", lastFoundData);
+showResult(lastFoundData);
+setStatus("Η αναζήτηση ολοκληρώθηκε.");
+      } catch (err) {
+        console.error(err);
+        setStatus("Σφάλμα επικοινωνίας με το σύστημα αναζήτησης.", true, false, true);
+      }
+    }
+
+    async function continueToForm() {
+      const acceptTerms = document.getElementById("acceptTermsCheck");
+
+if (acceptTerms && !acceptTerms.checked) {
+  alert("Παρακαλούμε αποδεχθείτε την Πολιτική Απορρήτου και τους Όρους Χρήσης για να συνεχίσετε.");
+  acceptTerms.scrollIntoView({ behavior: "smooth", block: "center" });
+  return;
+}
+      if (!lastFoundData) {
+        setStatus("Δεν υπάρχουν στοιχεία για συνέχεια.", true, false, true);
+        return;
+      }
+
+      const captainState = getCaptainState();
+
+if (
+  !captainState.card.trim() ||
+  !captainState.name.trim() ||
+  captainState.name.trim() === "Δεν βρέθηκε"
+) {
+  alert("Παρακαλώ συμπληρώστε και αναζητήστε πρώτα έγκυρο αριθμό δελτίου κυβερνήτη.");
+  document.getElementById("captainCardInput")?.focus();
+  return;
+}
+      const crewRowsForCheck = getCrewPdfRows();
+
+      if (crewRowsForCheck.length === 0) {
+       alert("Πρέπει να προστεθεί τουλάχιστον ένα μέλος πληρώματος.\n\nΒάλτε έναν ή περισσότερους αριθμούς στο πλαίσιο ΠΛΗΡΩΜΑ και πατήστε ΑΝΑΖΗΤΗΣΗ ΟΛΩΝ.");
+return;
+      }
+const wosr1 = document.getElementById("wosrMember1")?.value || "";
+const wosr2 = document.getElementById("wosrMember2")?.value || "";
+
+const osrRule = String(CONFIG.OSR_RULE || "NONE").trim().toUpperCase();
+
+const osrBox = document.getElementById("wosrSelectBox");
+const osrBoxVisible = osrBox && window.getComputedStyle(osrBox).display !== "none";
+
+const osrRequired =
+  osrBoxVisible &&
+  !(osrRule === "NONE" || osrRule === "NO" || osrRule === "OXI" || osrRule === "ΟΧΙ" || osrRule === "");
+if (osrRequired) {
+  if (!wosr1 || !wosr2) {
+    alert("Παρακαλώ επιλέξτε δύο εξοικειωμένα μέλη πληρώματος WS OSR 6.05.3.");
+    return;
+  }
+
+  if (wosr1 === wosr2) {
+    alert("Παρακαλώ επιλέξτε δύο διαφορετικά μέλη πληρώματος.");
+    return;
+  }
+}      
+      saveEntryState();
+
+      // Πριν ανοίξει η Jotform περιμένουμε να έχει ολοκληρωθεί η φόρτωση
+      // των ΡΥΘΜΙΣΕΩΝ, ώστε τίτλος, ημερομηνία, διοργανωτής, OSR και URL
+      // να είναι οι σωστές τιμές του συγκεκριμένου αγώνα.
+      await settingsReadyPromise;
+
+      let formUrl = "";
+      try {
+        formUrl = buildPrefillUrl(lastFoundData);
+      } catch (error) {
+        console.error(error);
+        alert(error.message || "Δεν ήταν δυνατό να ανοίξει η φόρμα συμμετοχής.");
+        return;
+      }
+      console.log("ΠΛΗΡΩΜΑ ΠΟΥ ΘΑ ΣΤΑΛΕΙ:", crewRowsForCheck);
+      console.log("JOTFORM PREFILL URL:", formUrl);
+//alert(buildCrewTextForPdf());
+
+const openJotformDirectly =
+  window.matchMedia("(max-width: 1024px)").matches ||
+  /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+if (openJotformDirectly) {
+  window.location.assign(formUrl);
+  return;
+}
+
+/* Σε υπολογιστή συνεχίζουμε με ενσωματωμένη Jotform */
+formFrame.src = formUrl;
+formWrap.style.display = "block";
+
+document.body.classList.add("jotform-open");
+document.documentElement.classList.add("jotform-open-html");
+
+window.scrollTo({ top: 0, behavior: "auto" });
+    }
+    function resetSearch() {
+      localStorage.removeItem(getStorageKey());
+      sailInput.value = "";
+      setStatus("");
+      hideResult();
+      sailInput.focus();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      
+    }
+
+    function getCaptainState() {
+      const captainBlock = document.querySelector("#crewScreen");
+      return {
+        card: captainBlock?.querySelector("input")?.value || "",
+        name: captainBlock?.querySelector(".name")?.innerText || "",
+        club: captainBlock?.querySelector(".club")?.innerText || ""
+      };
+    }
+
+    function saveEntryState() {
+      const state = {
+        boat: lastFoundData || null,
+        captain: getCaptainState(),
+        crew: getCrewPdfRows()
+      };
+
+      localStorage.setItem(getStorageKey(), JSON.stringify(state));
+    }
+
+    function restoreEntryState() {
+      const saved = localStorage.getItem(getStorageKey());
+
+      if (!saved) {
+        setStatus("Δεν βρέθηκαν αποθηκευμένα στοιχεία πληρώματος. Κάντε νέα αναζήτηση σκάφους.", true, false, true);
+        return;
+      }
+
+      let state = null;
+
+      try {
+        state = JSON.parse(saved);
+      } catch (err) {
+        console.error("Λάθος αποθηκευμένα στοιχεία:", err);
+        setStatus("Δεν ήταν δυνατή η επαναφορά των στοιχείων. Κάντε νέα αναζήτηση σκάφους.", true, false, true);
+        return;
+      }
+
+      lastFoundData = state.boat || null;
+
+      if (lastFoundData) {
+        showResult(lastFoundData);
+      }
+
+      showCrewScreen();
+
+      const captainInput = document.querySelector("#crewScreen input");
+      const captainName = document.querySelector("#crewScreen .name");
+      const captainClub = document.querySelector("#crewScreen .club");
+
+      if (captainInput) captainInput.value = state.captain?.card || "";
+      if (captainName) captainName.innerText = state.captain?.name || "";
+      if (captainClub) captainClub.innerText = state.captain?.club || "";
+
+      document.getElementById("crewSection").style.display = "block";
+      document.getElementById("crewList").innerHTML = "";
+
+      (state.crew || []).forEach((member) => {
+        addCrewMemberFromData(member);
+      });
+
+      if ((state.crew || []).length > 0) {
+        document.getElementById("continueToJotformBtn").style.display = "inline-block";
+      }
+
+      setTimeout(() => {
+        document.getElementById("crewScreen").scrollIntoView({
+          behavior: "smooth",
+          block: "start"
+        });
+      }, 200);
+    }
+
+    function handleCrewEditReturn() {
+      const params = new URLSearchParams(window.location.search);
+      if (params.get("crewEdit") === "1") {
+        restoreEntryState();
+
+        // Καθαρίζουμε τη διεύθυνση ώστε μετά από ανανέωση να μη μπαίνει ξανά αυτόματα σε edit.
+        window.history.replaceState({}, document.title, window.location.pathname);
+      }
+    }
+
+    setupHero();
+// Προθέρμανση της υπηρεσίας αναζήτησης
+const boatLookupWarmup =
+  fetch(BOAT_LOOKUP_URL + "?id=__warmup__")
+    .catch(() => null);    
+    if (FORM_OPEN === false) {
+      document.querySelector(".hero").style.display = "none";
+      document.querySelector(".separator").style.display = "none";
+      document.getElementById("eventTitle").style.display = "none";
+      document.querySelector(".notice-box").style.display = "none";
+      document.querySelector(".search-area").style.display = "none";
+      resultCard.style.display = "none";
+      actions.style.display = "none";
+      formWrap.style.display = "none";
+
+      statusBox.style.display = "block";
+      statusBox.innerHTML =
+        '<div style="color:#0d5e92; font-size:28px; font-weight:700; text-align:center; margin-bottom:24px;">' +
+        CONFIG.EVENT_TITLE +
+        '</div>' +
+        '<div style="color:#b00020; font-size:22px; text-align:center;">' +
+        CLOSED_MESSAGE +
+        '<br><br>Για πληροφορίες επικοινωνήστε με τη Γραμματεία Αγώνα Τηλ. ' +
+        CONFIG.INFO_PHONE +
+        '.</div>';
+
+      statusBox.style.fontSize = "22px";
+      statusBox.style.marginTop = "60px";
+
+      throw new Error("FORM_CLOSED");
+    }
+
+    handleCrewEditReturn();
+
+    searchBtn.addEventListener("click", searchBoat);
+    continueBtn.addEventListener("click", showCrewScreen);
+    newSearchBtn.addEventListener("click", resetSearch);
+
+    sailInput.addEventListener("keydown", function (e) {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        searchBoat();
+      }
+    });
+function showCrewScreen() {
+  const acceptTerms = document.getElementById("acceptTermsCheck");
+
+if (acceptTerms && !acceptTerms.checked) {
+  alert("Παρακαλούμε αποδεχθείτε την Πολιτική Απορρήτου και τους Όρους Χρήσης για να συνεχίσετε.");
+  acceptTerms.scrollIntoView({ behavior: "smooth", block: "center" });
+  return;
+}
+  document.querySelector(".hero").style.display = "none";
+  document.querySelector(".separator").style.display = "none";
+  document.getElementById("eventTitle").style.display = "none";
+  document.querySelector(".notice-box").style.display = "none";
+  document.querySelector(".search-area").style.display = "none";
+  statusBox.style.display = "none";
+  resultCard.style.display = "none";
+  actions.style.display = "none";
+
+document.getElementById("crewScreen").style.display = "block";
+document.getElementById("crewSection").style.display = "none";
+formWrap.style.display = "none";
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+
+// 👉 ΒΑΖΕΙΣ ΕΔΩ ΤΗ ΝΕΑ FUNCTION
+    function updateCrewMemberSearchButton(input) {
+  const row = input.closest("tr");
+  if (!row) return;
+
+  const btn = row.querySelector(".memberSearchBtn");
+  if (!btn) return;
+
+  if (input.value.trim()) {
+    btn.style.background = "#dff0d8";
+    btn.style.borderColor = "#4b8f29";
+    btn.style.color = "#143a16";
+    btn.style.fontWeight = "bold";
+  } else {
+    btn.style.background = "";
+    btn.style.borderColor = "";
+    btn.style.color = "";
+    btn.style.fontWeight = "";
+  }
+}
+    function showSecondCaptain() {
+  const section = document.getElementById("secondCaptainSection");
+  const buttonBox = document.getElementById("addSecondCaptainBox");
+  const input = document.getElementById("secondCaptainCardInput");
+
+  if (section) section.style.display = "block";
+  if (buttonBox) buttonBox.style.display = "none";
+  if (input) input.focus();
+}
+
+function hideSecondCaptain() {
+  const section = document.getElementById("secondCaptainSection");
+  const buttonBox = document.getElementById("addSecondCaptainBox");
+  const input = document.getElementById("secondCaptainCardInput");
+
+  if (section) section.style.display = "none";
+  if (buttonBox) buttonBox.style.display = "block";
+
+  if (input) input.value = "";
+
+  if (section) {
+    const nameEl = section.querySelector(".name");
+    const clubEl = section.querySelector(".club");
+    const cardEl = section.querySelector(".cardNumber");
+    const statusEl = section.querySelector(".personStatus");
+
+    if (nameEl) nameEl.innerText = "";
+    if (clubEl) clubEl.innerText = "";
+    if (cardEl) cardEl.innerText = "";
+    if (statusEl) statusEl.innerText = "";
+  }
+}
+async function lookupPerson(input) {
+  const id = input.value.trim();
+  if (!id) return;
+
+ const row = input.parentElement.parentElement;
+  const nameEl = row.querySelector(".name");
+  const clubEl = row.querySelector(".club");
+  const cardEl = row.querySelector(".cardNumber");
+  const statusEl = row.querySelector(".personStatus");
+
+  nameEl.innerText = "";
+  clubEl.innerText = "";
+  if (cardEl) cardEl.innerText = "";
+
+if (statusEl) {
+  statusEl.innerText = "Γίνεται αναζήτηση…";
+  statusEl.style.color = "#5f5147";
+}
+
+refreshWosrSelectors();
+
+  try {
+    const res = await fetch(PERSON_LOOKUP_URL + "?type=person&id=" + encodeURIComponent(id));
+    const json = await res.json();
+
+    if (!json.found) {
+      nameEl.innerText = "Δεν βρέθηκε";
+      clubEl.innerText = "";
+
+      if (statusEl) {
+        statusEl.innerText = "✖ Το δελτίο δεν βρέθηκε. Παρακαλούμε ελέγξτε τον αριθμό.";
+        statusEl.style.color = "#b00020";
+      }
+
+      return;
+    }
+
+    nameEl.innerText = json.data.name || "";
+ clubEl.innerText = shortClubName(json.data.club || "");
+    if (cardEl) cardEl.innerText = input.value.trim();
+    
+const crewSectionEl = document.getElementById("crewSection");
+
+if (crewSectionEl && input.closest("#crewScreen")) {
+  crewSectionEl.style.display = "block";
+
+  // Το κουμπί για Jotform να εμφανίζεται ΜΟΝΟ όταν έχει βρεθεί μέλος πληρώματος,
+  // όχι απλώς όταν βρέθηκε ο κυβερνήτης.
+  if (input.closest("#crewTable")) {
+    document.getElementById("continueToJotformBtn").style.display = "inline-block";
+  }
+}
+    if (statusEl) {
+   statusEl.innerText = "✔ Βρέθηκε";
+statusEl.style.color = "#2e7d32";
+    }
+
+  } catch (err) {
+    console.error(err);
+
+    if (statusEl) {
+      statusEl.innerText = "✖ Σφάλμα επικοινωνίας. Παρακαλούμε δοκιμάστε ξανά.";
+      statusEl.style.color = "#b00020";
+    }
+  }
+}
+
+async function lookupBulkCrewCards() {
+  const textarea = document.getElementById("bulkCrewCards");
+  const text = textarea.value.trim();
+
+  if (!text) {
+    alert("Επικολλήστε πρώτα τους αριθμούς δελτίων.");
+    return;
+  }
+
+  const cards = text
+    .split(/[\s,;]+/)
+    .map(v => v.trim())
+    .filter(v => v);
+
+  if (cards.length === 0) {
+    alert("Δεν βρέθηκαν αριθμοί δελτίων.");
+    return;
+  }
+
+  if (cards.length > 10) {
+    alert("Μπορείτε να βάλετε μέχρι 10 μέλη πληρώματος.");
+    return;
+  }
+
+  document.getElementById("crewList").innerHTML = "";
+  document.getElementById("continueToJotformBtn").style.display = "none";
+
+  for (const card of cards) {
+    addCrewMember();
+
+    const rows = document.querySelectorAll("#crewTable tbody tr");
+    const tr = rows[rows.length - 1];
+    const input = tr.querySelector("input");
+
+  input.value = card;
+
+await lookupPerson(input);
+
+const name = tr.querySelector(".name")?.innerText.trim() || "";
+const searchButton = tr.querySelector(".crewSearchBtn");
+
+if (name && name !== "Δεν βρέθηκε" && searchButton) {
+  searchButton.style.display = "none";
+}
+  }
+
+  renumberCrewRows();
+
+  const foundRows = getCrewPdfRows();
+
+  if (foundRows.length > 0) {
+    document.getElementById("continueToJotformBtn").style.display = "inline-block";
+  }
+
+  if (foundRows.length < cards.length) {
+    alert("Η αναζήτηση ολοκληρώθηκε, αλλά κάποια δελτία δεν βρέθηκαν. Ελέγξτε τις γραμμές με μήνυμα σφάλματος.");
+  }
+}
+    
+function addCrewMember() {
+  let table = document.getElementById("crewTable");
+
+  if (!table) {
+    document.getElementById("crewList").innerHTML = `
+      <table id="crewTable" style="width:100%; min-width:640px; border-collapse:collapse; font-size:15px; margin-top:14px;">
+        <thead>
+          <tr style="background:#f1f4ef;">
+            <th style="border:1px solid #bfb6aa; padding:6px; width:45px;">Α/Α</th>
+            <th style="border:1px solid #bfb6aa; padding:6px;">ΔΕΛΤΙΟ</th>
+            <th style="border:1px solid #bfb6aa; padding:6px;">ΟΝΟΜΑ</th>
+            <th style="border:1px solid #bfb6aa; padding:6px;">ΟΜΙΛΟΣ</th>
+          <th style="border:1px solid #bfb6aa; padding:6px; width:130px;">ΕΝΕΡΓΕΙΑ</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    `;
+
+    table = document.getElementById("crewTable");
+  }
+
+  const tbody = table.querySelector("tbody");
+  const tr = document.createElement("tr");
+
+  tr.innerHTML = `
+    <td class="rowNo" style="border:1px solid #bfb6aa; padding:6px; text-align:center;"></td>
+    <td style="border:1px solid #bfb6aa; padding:6px;">
+ <input type="text" placeholder="19012" oninput="updateCrewMemberSearchButton(this)" style="width:75px; height:36px; font-size:16px; text-align:center;">
+      <div class="personStatus" style="font-weight:bold; margin-top:6px; font-size:12px;"></div>
+    </td>
+    <td style="border:1px solid #bfb6aa; padding:6px;"><span class="name"></span></td>
+    <td style="border:1px solid #bfb6aa; padding:6px;"><span class="club"></span></td>
+   <td style="border:1px solid #bfb6aa; padding:6px; text-align:center;">
+<button type="button"
+       class="crewSearchBtn memberSearchBtn"
+        onclick="lookupPerson(this.closest('tr').querySelector('input'))"
+        style="background:#f1f4ef; color:#2f241d; border:1px solid #bfb6aa; padding:6px 8px; font-weight:bold; cursor:pointer; font-size:12px; white-space:nowrap;">
+  🔍 ΑΝΑΖΗΤΗΣΗ ΜΕΛΟΥΣ
+</button>
+
+ <button type="button"
+        onclick="deleteCrewRow(this)"
+        style="color:#b00020; background:#fff; border:1px solid #bfb6aa; padding:6px 8px; font-weight:bold; cursor:pointer; font-size:12px; white-space:nowrap; margin-top:4px;">
+  ✖ ΔΙΑΓΡΑΦΗ
+</button>
+</td>
+  `;
+
+  tbody.appendChild(tr);
+  renumberCrewRows();
+}
+
+function addCrewMemberSafe() {
+  const rows = document.querySelectorAll("#crewTable tbody tr");
+
+  for (const row of rows) {
+    const input = row.querySelector("input");
+    const card = input?.value.trim();
+    const name = row.querySelector(".name")?.innerText.trim();
+
+    if (card && !name) {
+      alert("Πατήστε πρώτα αναζήτηση 🔍");
+      return;
+    }
+
+    if (!card && !name) {
+      alert("Συμπληρώστε πρώτα το δελτίο στην υπάρχουσα γραμμή και πατήστε αναζήτηση 🔍");
+      return;
+    }
+  }
+
+  addCrewMember();
+}
+
+function deleteCrewRow(btn) {
+  btn.closest("tr").remove();
+
+  const tbody = document.querySelector("#crewTable tbody");
+  if (tbody && tbody.children.length === 0) {
+    document.getElementById("crewList").innerHTML = "";
+  }
+
+  renumberCrewRows();
+}
+function getSecondCaptainState() {
+  const cardInput =
+    document.getElementById("secondCaptainCardInput");
+
+  const searchButton =
+    document.querySelector(
+      'button[onclick*="secondCaptainCardInput"]'
+    );
+
+  const box =
+    searchButton?.parentElement?.parentElement ||
+    cardInput?.parentElement;
+
+  return {
+    name: String(
+      box?.querySelector(".name")?.textContent || ""
+    ).trim(),
+
+    card: String(
+      cardInput?.value || ""
+    ).trim(),
+
+    club: String(
+      box?.querySelector(".club")?.textContent || ""
+    ).trim()
+  };
+}
+function refreshWosrSelectors() {
+  const select1 = document.getElementById("wosrMember1");
+  const select2 = document.getElementById("wosrMember2");
+  const box = document.getElementById("wosrSelectBox");
+
+  if (!select1 || !select2 || !box) return;
+
+  const rule = String(CONFIG.OSR_RULE || "NONE")
+    .trim()
+    .toUpperCase();
+
+  if (
+    rule === "NONE" ||
+    rule === "NO" ||
+    rule === "OXI" ||
+    rule === "ΟΧΙ" ||
+    rule === ""
+  ) {
+    box.style.display = "none";
+    select1.value = "";
+    select2.value = "";
+    select1.removeAttribute("required");
+    select2.removeAttribute("required");
+    return;
+  }
+
+  const previous1 = select1.value;
+  const previous2 = select2.value;
+
+  select1.innerHTML =
+    '<option value="">Επιλέξτε ένα μέλος</option>';
+
+  select2.innerHTML =
+    '<option value="">Επιλέξτε ένα μέλος</option>';
+
+  const rows = getCrewPdfRows();
+  const captain = getCaptainState();
+const secondCaptain = getSecondCaptainState();
+
+  if (
+    !captain.name &&
+    !secondCaptain.name &&
+    rows.length === 0
+  ) {
+    box.style.display = "none";
+    return;
+  }
+
+  box.style.display = "block";
+
+  function addOptionToBoth(value, label) {
+    const option1 = document.createElement("option");
+    option1.value = value;
+    option1.textContent = label;
+
+    const option2 = document.createElement("option");
+    option2.value = value;
+    option2.textContent = label;
+
+    select1.appendChild(option1);
+    select2.appendChild(option2);
+  }
+
+  // Κυβερνήτης Α
+  if (captain.name && captain.card) {
+    addOptionToBoth(
+      "captain",
+      "ΚΥΒ Α - " +
+        captain.name +
+        " (" +
+        captain.card +
+        ")"
+    );
+  }
+
+  // Κυβερνήτης Β
+  if (secondCaptain.name) {
+    const secondCaptainLabel =
+      "ΚΥΒ Β - " +
+      secondCaptain.name +
+      (secondCaptain.card
+        ? " (" + secondCaptain.card + ")"
+        : "");
+
+    addOptionToBoth(
+      "second_captain",
+      secondCaptainLabel
+    );
+  }
+
+  // Υπόλοιπο πλήρωμα
+  rows.forEach((row, index) => {
+    const aa = index + 1;
+
+    const label =
+      aa +
+      " - " +
+      (row.name || "") +
+      " (" +
+      (row.card || "") +
+      ")";
+
+    addOptionToBoth(String(aa), label);
+  });
+
+  select1.value = previous1;
+  select2.value = previous2;
+}
+    
+function renumberCrewRows() {
+  document.querySelectorAll("#crewTable tbody tr").forEach((tr, index) => {
+    tr.querySelector(".rowNo").innerText = index + 1;
+  });
+
+  refreshWosrSelectors();
+}
+function addCrewMemberFromData(member) {
+  addCrewMember();
+
+  const rows = document.querySelectorAll("#crewTable tbody tr");
+  const tr = rows[rows.length - 1];
+
+  tr.querySelector("input").value = member.card || "";
+  tr.querySelector(".name").innerText = member.name || "";
+  tr.querySelector(".club").innerText = member.club || "";
+}
+
+function loadCrewFromJson(crewJson) {
+  if (!crewJson) return;
+
+  let members = [];
+
+  try {
+    members = JSON.parse(crewJson);
+  } catch (err) {
+    console.error("Λάθος crew JSON:", err);
+    return;
+  }
+
+  document.getElementById("crewList").innerHTML = "";
+
+  members.forEach((member) => {
+    addCrewMemberFromData(member);
+  });
+}
+</script>
+</body>
+</html>
