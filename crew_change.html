@@ -821,14 +821,6 @@ body.jotform-open #formFrame {
     autocapitalize="characters"
   />
 
-  <input
-    type="text"
-    id="modificationCode"
-    placeholder="Κωδικός τροποποίησης"
-    autocomplete="off"
-    spellcheck="false"
-  />
-
   <button class="btn" id="searchBtn" type="button">
     ΑΝΑΖΗΤΗΣΗ
   </button>
@@ -1656,7 +1648,7 @@ function buildCrewTextForPdf() {
 
   return text.trimEnd();
 }
-function boatLookupJsonp(sailNumber, modificationCode) {
+function boatLookupJsonp(sailNumber) {
   return new Promise(function (resolve, reject) {
     const callbackName =
       "__boatLookupCallback_" +
@@ -1698,8 +1690,6 @@ function boatLookupJsonp(sailNumber, modificationCode) {
       separator +
      "id=" +
 encodeURIComponent(sailNumber) +
-"&modificationCode=" +
-encodeURIComponent(modificationCode) +
 "&callback=" +
       encodeURIComponent(callbackName) +
       "&_=" +
@@ -1723,31 +1713,17 @@ if (acceptTerms && !acceptTerms.checked) {
   return;
 }
       const sailNumber = sailInput.value.trim();
-      const modificationCode =
-       document.getElementById("modificationCode").value.trim();
       if (!sailNumber) {
         setStatus("Παρακαλώ πληκτρολόγησε αριθμό ιστίου.", true, false, true);
         hideResult();
         return;
       }
-if (!modificationCode) {
-  setStatus(
-    "Παρακαλώ πληκτρολόγησε τον Κωδικό Τροποποίησης.",
-    true,
-    false,
-    true
-  );
 
-  document.getElementById("modificationCode").focus();
-  hideResult();
-  return;
-}
-      
       setStatus("Γίνεται αναζήτηση...", false, true, true);
       hideResult();
 
       try {
-    const json = await boatLookupJsonp(sailNumber, modificationCode);
+    const json = await boatLookupJsonp(sailNumber);
 
         if (!json.ok) {
           setStatus("Σφάλμα στο σύστημα αναζήτησης.", true, false, true);
@@ -1755,18 +1731,6 @@ if (!modificationCode) {
         }
 
       if (!json.found) {
-  if (json.invalidModificationCode) {
-    setStatus(
-      "Ο Αριθμός Ιστίου ή ο Κωδικός Τροποποίησης δεν είναι σωστός. Παρακαλώ ελέγξτε και δοκιμάστε ξανά.",
-      true,
-      false,
-      true
-    );
-
-    document.getElementById("modificationCode").focus();
-    return;
-  }
-
   setStatus(
     "Δεν βρέθηκαν στοιχεία για αυτόν τον αριθμό ιστίου.",
     true,
@@ -1776,6 +1740,29 @@ if (!modificationCode) {
 
   return;
 }
+
+      if (json.multiple && Array.isArray(json.matches)) {
+        const options = json.matches
+          .map(function (item) {
+            const full = String(item.sailno_full || "").trim();
+            const name = String(item.yacht_name || "").trim();
+            return [full, name].filter(Boolean).join(" — ");
+          })
+          .filter(Boolean);
+
+        setStatus(
+          "Βρέθηκαν περισσότερες από μία συμμετοχές με αυτόν τον αριθμό ιστίου. " +
+          "Παρακαλώ γράψτε τον πλήρη αριθμό ιστίου" +
+          (options.length ? ": " + options.join(" / ") : "."),
+          true,
+          false,
+          true
+        );
+
+        hideResult();
+        sailInput.focus();
+        return;
+      }
 
       lastFoundData = json.data || {};
 console.log("DATA ΠΟΥ ΗΡΘΑΝ:", lastFoundData);
@@ -1796,10 +1783,6 @@ setStatus("Η αναζήτηση ολοκληρώθηκε.");
       ""
     ).trim();
 
-    const modificationCode = String(
-      document.getElementById("modificationCode")?.value || ""
-    ).trim();
-
     const submissionId = String(
       data.submission_id ||
       data.submissionId ||
@@ -1809,11 +1792,6 @@ setStatus("Η αναζήτηση ολοκληρώθηκε.");
 
     if (!sailNumber) {
       reject(new Error("Δεν βρέθηκε ο αριθμός ιστίου."));
-      return;
-    }
-
-    if (!modificationCode) {
-      reject(new Error("Δεν βρέθηκε ο κωδικός τροποποίησης."));
       return;
     }
 
@@ -1869,7 +1847,6 @@ setStatus("Η αναζήτηση ολοκληρώθηκε.");
 
     params.set("action", "updateCrew");
     params.set("id", sailNumber);
-    params.set("modificationCode", modificationCode);
     params.set("submissionId", submissionId);
     params.set("crewJson", JSON.stringify(crewRows));
 
@@ -3682,3 +3659,4 @@ function refreshWosrSelectors() {
 </script>
 </body>
 </html>
+
