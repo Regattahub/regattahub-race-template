@@ -780,6 +780,139 @@ height: 100dvh !important;
         <button class="btn secondary" id="newSearchBtn" type="button">ΝΕΑ ΑΝΑΖΗΤΗΣΗ</button>
       </div>
 
+      <!-- ΕΝΣΩΜΑΤΩΜΕΝΗ ΦΟΡΜΑ ΔΗΛΩΣΗΣ ΠΛΗΡΩΜΑΤΟΣ ΕΙΟ -->
+<div
+  id="eioTestWrap"
+  style="display:none; width:100%; max-width:1100px; margin:20px auto;"
+>
+  <div
+    id="orcStickyWrap"
+    style="
+      display:none;
+      position:sticky;
+      top:10px;
+      z-index:50;
+      margin:0 auto 16px auto;
+      max-width:760px;
+    "
+  >
+    <div
+      id="orcReferenceBox"
+      style="
+        position:relative;
+        padding:12px 16px;
+        background:#eaf6ff;
+        border:2px solid #2b7bbb;
+        border-radius:8px;
+        text-align:center;
+        font-size:16px;
+      "
+    >
+      <img
+        src="https://github.com/jsamartzis-png/logos/blob/main/logo_EntryFlow_removebg-preview.png?raw=true"
+        alt="RegattaHub"
+        style="
+          position:absolute;
+          left:18px;
+          top:50%;
+          transform:translateY(-50%);
+          width:82px;
+          height:auto;
+        "
+      >
+
+      <div style="font-weight:700; margin-bottom:6px; padding:0 90px;">
+        ORC Reference πιστοποιητικού
+      </div>
+
+      <div
+        id="orcReferenceValue"
+        style="font-size:22px; font-weight:800; letter-spacing:1px; padding:0 90px;"
+      ></div>
+
+      <button
+        id="copyOrcReferenceBtn"
+        type="button"
+        onclick="copyOrcReference()"
+        style="
+          margin-top:9px;
+          min-width:150px;
+          height:38px;
+          padding:0 16px;
+          border:none;
+          border-radius:5px;
+          background:#4d8b1f;
+          color:#fff;
+          font-size:14px;
+          font-weight:800;
+          cursor:pointer;
+        "
+      >
+        ΑΝΤΙΓΡΑΦΗ
+      </button>
+    </div>
+
+    <div
+      id="orcReferenceHelp"
+      style="
+        margin-top:6px;
+        padding:5px 10px;
+        text-align:center;
+        font-size:15px;
+        font-weight:600;
+        background:rgba(241,244,239,0.96);
+        border-radius:4px;
+      "
+    >
+      Επικολλήστε το ORC Reference όταν σας ζητηθεί στη φόρμα της ΕΙΟ.
+    </div>
+  </div>
+
+  <div
+    style="
+      max-width:760px;
+      margin:0 auto 10px auto;
+      text-align:center;
+      font-size:13px;
+      line-height:1.45;
+      color:#5f5147;
+    "
+  >
+    Η δήλωση πληρώματος πραγματοποιείται στην εφαρμογή της Ελληνικής Ιστιοπλοϊκής Ομοσπονδίας (ΕΙΟ/ΕΑΘ), η οποία προβάλλεται εδώ για τη διευκόλυνση του χρήστη.
+  </div>
+
+  <iframe
+    src="https://www.offshore.org.gr/mail/raceprogram.php?intro=yes&show=available"
+    style="width:100%; height:1200px; border:1px solid #ccc; background:white;"
+    title="Δήλωση Πληρώματος ΕΙΟ"
+  ></iframe>
+</div>
+<div
+  id="eioConfirmBox"
+  style="display:none; margin:20px auto; padding:16px; max-width:760px; background:#fff8d8; border:2px solid #d39b00; border-radius:8px; text-align:center;"
+>
+
+  <label style="font-size:16px; font-weight:700; line-height:1.5;">
+    <input
+      type="checkbox"
+      id="eioCompletedCheck"
+      style="width:22px; height:22px; margin-right:10px; vertical-align:middle;"
+      onchange="document.getElementById('continueAfterEioBtn').style.display = this.checked ? 'inline-block' : 'none';"
+    >
+    Έχω ολοκληρώσει και υποβάλει οριστικά τη δήλωση πληρώματος στην ΕΙΟ
+  </label>
+
+  <div style="margin-top:16px;">
+    <button
+      id="continueAfterEioBtn"
+      class="btn"
+      type="button"
+      style="display:none;"
+    >
+      ΣΥΝΕΧΕΙΑ ΣΤΗΝ ΑΙΤΗΣΗ ΣΥΜΜΕΤΟΧΗΣ
+    </button>
+  </div>
+</div>    
 <div id="crewScreen" style="display:none; max-width:720px; margin:20px auto; border:1px solid #bfb6aa; padding:28px; background:white; text-align:center; border-radius:6px;">
 
   <h3 style="text-align:center;"> ΚΑΤΑΧΩΡΗΣΗ ΣΤΟΙΧΕΙΩΝ ΠΛΗΡΩΜΑΤΟΣ</h3>
@@ -1003,6 +1136,7 @@ const CONFIG = {
   SETTINGS_ENDPOINT: makeSettingsEndpoint(),
 
   OSR_RULE: "YES",
+  EIO_FLOW: "__EIO_FLOW__",
 
   ORGANIZER_BANNER: "",
   ORGANIZER_NAME: "",
@@ -1131,6 +1265,37 @@ function applyOsrRule() {
   box.style.display = "block";
 }
 
+function isEioFlowEnabled() {
+  return String(CONFIG.EIO_FLOW || "NO").trim().toUpperCase() === "YES";
+}
+
+function resetEioUi() {
+  const wrap = document.getElementById("eioTestWrap");
+  const confirmBox = document.getElementById("eioConfirmBox");
+  const completedCheck = document.getElementById("eioCompletedCheck");
+  const continueAfterEioBtn = document.getElementById("continueAfterEioBtn");
+  const stickyWrap = document.getElementById("orcStickyWrap");
+
+  if (wrap) wrap.style.display = "none";
+  if (confirmBox) confirmBox.style.display = "none";
+  if (stickyWrap) stickyWrap.style.display = "none";
+  if (completedCheck) completedCheck.checked = false;
+  if (continueAfterEioBtn) continueAfterEioBtn.style.display = "none";
+}
+
+function applyCrewFlowUi() {
+  const continueBtn = document.getElementById("continueBtn");
+  const useEio = isEioFlowEnabled();
+
+  if (continueBtn) {
+    continueBtn.textContent = useEio
+      ? "ΔΗΛΩΣΗ ΠΛΗΡΩΜΑΤΟΣ ΕΙΟ"
+      : "ΚΑΤΑΧΩΡΗΣΗ ΠΛΗΡΩΜΑΤΟΣ";
+  }
+
+  if (!useEio) resetEioUi();
+}
+
 function renderRaceSettings() {
   const title = String(CONFIG.EVENT_TITLE || "").trim();
   const raceDate = String(CONFIG.RACE_DATE || "").trim();
@@ -1183,6 +1348,7 @@ function renderRaceSettings() {
 
   showOrganizerBanner(CONFIG.ORGANIZER_BANNER);
   applyOsrRule();
+  applyCrewFlowUi();
   document.title = title ? "RegattaFlow - " + title : "RegattaFlow";
 }
 
@@ -1207,6 +1373,9 @@ function applyRaceSettingsData(data) {
   ).trim().toUpperCase();
   CONFIG.OSR_RULE = String(
     data.osrRule || CONFIG.OSR_RULE || "YES"
+  ).trim().toUpperCase();
+  CONFIG.EIO_FLOW = String(
+    data.eioFlow || data.eio_flow || data.EIO_FLOW || CONFIG.EIO_FLOW || "NO"
   ).trim().toUpperCase();
 
   const jotformId =
@@ -2073,6 +2242,7 @@ window.scrollTo({ top: 0, behavior: "auto" });
       sailInput.value = "";
       setStatus("");
       hideResult();
+      resetEioUi();
       sailInput.focus();
       window.scrollTo({ top: 0, behavior: "smooth" });
       
@@ -2197,7 +2367,135 @@ const boatLookupWarmup =
     handleCrewEditReturn();
 
     searchBtn.addEventListener("click", searchBoat);
-    continueBtn.addEventListener("click", showCrewScreen);
+
+function copyOrcReference() {
+  const valueEl = document.getElementById("orcReferenceValue");
+  const button = document.getElementById("copyOrcReferenceBtn");
+  const value = valueEl ? String(valueEl.textContent || "").trim() : "";
+
+  if (!value) return;
+
+  function showCopied() {
+    if (!button) return;
+    button.textContent = "ΑΝΤΙΓΡΑΦΗΚΕ ✓";
+    window.setTimeout(function () {
+      if (button) button.textContent = "ΑΝΤΙΓΡΑΦΗ";
+    }, 1800);
+  }
+
+  function fallbackCopy() {
+    const temp = document.createElement("textarea");
+    temp.value = value;
+    temp.setAttribute("readonly", "");
+    temp.style.position = "fixed";
+    temp.style.left = "-9999px";
+    temp.style.opacity = "0";
+    document.body.appendChild(temp);
+    temp.select();
+    temp.setSelectionRange(0, temp.value.length);
+
+    try {
+      document.execCommand("copy");
+      showCopied();
+    } catch (error) {
+      alert("Δεν ήταν δυνατή η αυτόματη αντιγραφή. Επιλέξτε τον κωδικό χειροκίνητα.");
+    }
+
+    document.body.removeChild(temp);
+  }
+
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(value)
+      .then(showCopied)
+      .catch(fallbackCopy);
+  } else {
+    fallbackCopy();
+  }
+}
+
+async function continueFromEioToForm() {
+  const acceptTerms = document.getElementById("acceptTermsCheck");
+
+  if (acceptTerms && !acceptTerms.checked) {
+    alert("Παρακαλούμε αποδεχθείτε την Πολιτική Απορρήτου και τους Όρους Χρήσης για να συνεχίσετε.");
+    acceptTerms.scrollIntoView({ behavior: "smooth", block: "center" });
+    return;
+  }
+
+  if (!lastFoundData) {
+    setStatus("Δεν υπάρχουν στοιχεία για συνέχεια.", true, false, true);
+    return;
+  }
+
+  await settingsReadyPromise;
+
+  let formUrl = "";
+  try {
+    formUrl = buildPrefillUrl(lastFoundData);
+  } catch (error) {
+    console.error(error);
+    alert(error.message || "Δεν ήταν δυνατό να ανοίξει η φόρμα συμμετοχής.");
+    return;
+  }
+
+  const openJotformDirectly =
+    window.matchMedia("(max-width: 1024px)").matches ||
+    /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+  if (openJotformDirectly) {
+    window.location.assign(formUrl);
+    return;
+  }
+
+  resetEioUi();
+  formFrame.src = formUrl;
+  formWrap.style.display = "block";
+
+  document.body.classList.add("jotform-open");
+  document.documentElement.classList.add("jotform-open-html");
+
+  window.scrollTo({ top: 0, behavior: "auto" });
+}
+
+continueBtn.addEventListener("click", function () {
+  const acceptTerms = document.getElementById("acceptTermsCheck");
+
+  if (acceptTerms && !acceptTerms.checked) {
+    alert("Παρακαλούμε αποδεχθείτε την Πολιτική Απορρήτου και τους Όρους Χρήσης για να συνεχίσετε.");
+    acceptTerms.scrollIntoView({ behavior: "smooth", block: "center" });
+    return;
+  }
+
+  if (!isEioFlowEnabled()) {
+    showCrewScreen();
+    return;
+  }
+
+  const eioTestWrap = document.getElementById("eioTestWrap");
+  const eioConfirmBox = document.getElementById("eioConfirmBox");
+  const orcValue = document.getElementById("orcReferenceValue");
+  const orcStickyWrap = document.getElementById("orcStickyWrap");
+
+  if (eioTestWrap) eioTestWrap.style.display = "block";
+  if (eioConfirmBox) eioConfirmBox.style.display = "block";
+
+  const orcReference = lastFoundData && lastFoundData.orc_reference
+    ? String(lastFoundData.orc_reference).trim()
+    : "";
+
+  if (orcValue) orcValue.textContent = orcReference;
+  if (orcStickyWrap) orcStickyWrap.style.display = orcReference ? "block" : "none";
+
+  if (eioTestWrap) {
+    eioTestWrap.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+});
+
+const continueAfterEioBtn = document.getElementById("continueAfterEioBtn");
+if (continueAfterEioBtn) {
+  continueAfterEioBtn.addEventListener("click", continueFromEioToForm);
+}
+
     newSearchBtn.addEventListener("click", resetSearch);
 
     sailInput.addEventListener("keydown", function (e) {
@@ -2669,3 +2967,4 @@ function loadCrewFromJson(crewJson) {
 </script>
 </body>
 </html>
+
