@@ -1,0 +1,165 @@
+<!-- REGATTAHUB V5 CANDIDATE. Requires Wizard config injection and Bridge/EIO delta integration tests. No live deployment. -->
+<!doctype html>
+<html lang="el"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="referrer" content="no-referrer"><title>__EVENT_TITLE__ — Αλλαγή πληρώματος | RegattaHub V5 Candidate</title>
+<script>(function(){const p=new URLSearchParams(location.search),e=p.get('entry');if(e===null)return;const m=/^(\d{10,22})\.([a-f0-9]{64})$/.exec(e);if(!m)return;p.delete('entry');let r=p.toString();history.replaceState(null,'',location.pathname+(r?'?'+r:'')+'#submissionId='+encodeURIComponent(m[1])+'&editToken='+encodeURIComponent(m[2]));})();</script>
+<style>
+*{box-sizing:border-box}body{margin:0;padding:22px 12px 55px;background:#0f6091;font:15px/1.5 Arial,Helvetica,sans-serif;color:#203a50}main{max-width:860px;margin:auto;background:#eff4f5;padding:23px;border-radius:13px;box-shadow:0 10px 35px #002b444a}header{text-align:center;padding:8px 0 17px}header img{max-width:160px;max-height:65px;object-fit:contain}h1{margin:8px 0;color:#124b70;font-size:clamp(23px,4vw,31px)}h2{color:#125679;font-size:21px;margin:0 0 15px}h3{font-size:17px;margin:0 0 12px;color:#214d69}section,.panel{padding:18px;background:white;border:1px solid #d6e1e7;border-radius:10px;margin:13px 0}input,textarea,select{font:inherit;border:1px solid #afc5d1;border-radius:7px;min-height:43px;padding:10px;width:100%;background:#fff}label{font-weight:bold;display:block;margin:12px 0 5px}input:focus,select:focus{outline:3px solid #a8d6eb}button{font:700 15px Arial;cursor:pointer;background:#116e9c;color:white;border:0;padding:12px 16px;border-radius:8px;min-height:44px}button.alt{background:#526a7e}button.danger{background:#a73e47}button:disabled{opacity:.45;cursor:default}a{color:#106d96}.hidden{display:none!important}.note{border-left:4px solid #0981a5;background:#e4f4f9;padding:13px;border-radius:5px}.warn{border-left:4px solid #be8e32;background:#fff3dc;padding:13px;border-radius:5px}.small{font-size:13px;color:#566c78}.bad{color:#a82739;font-weight:bold}.good{color:#15704d;font-weight:bold}.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:14px}.cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.cols2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.member{border:1px solid #cadde3;border-radius:9px;padding:12px;margin:9px 0;display:flex;justify-content:space-between;align-items:center;gap:12px}.member .name{font-weight:bold}.member .small{margin-top:4px}.agree{display:flex;gap:10px;align-items:flex-start;font-weight:normal}.agree input{width:19px;min-height:19px;height:19px;flex-shrink:0}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#edf3f6;border-radius:7px;padding:14px;font:13px/1.6 monospace}.stepNumber{display:inline-block;background:#e4f4f9;border-radius:6px;padding:4px 9px;font-weight:700;font-size:12px;color:#116e9c;margin-bottom:10px}details{border:1px solid #d6e1e7;border-radius:8px;padding:12px;margin:14px 0}summary{cursor:pointer;font-weight:700;color:#115d85}footer{color:#e1f0f9;text-align:center;font-size:12px;margin-top:15px}@media(max-width:640px){main{padding:12px}.cols,.cols2{grid-template-columns:1fr}.member{align-items:flex-start}}
+
+
+/* V9.2 — πιο ευανάγνωστα πεδία και οδηγίες, χωρίς αλλαγή λειτουργίας */
+#start input, #start textarea, #start select {font-size:17px;font-weight:600;color:#173d57;}
+#start input::placeholder {font-size:16px;font-weight:400;color:#657d8b;}
+#start label {font-size:16px;font-weight:700;}
+#start button {font-size:16px;font-weight:700;}
+#start .stepNumber {font-size:13px;font-weight:800;}
+#start h3 {font-size:19px;font-weight:800;}
+#stepMatch #sailResults {font-size:18px;font-weight:700;line-height:1.55;}
+#start .small {font-size:15px;font-weight:600;line-height:1.6;}
+#start .note, #start #startStatus {font-size:16px;font-weight:600;line-height:1.6;}
+
+
+/* V9.2 — ανάδειξη επιλεγμένου σκάφους, μόνο αισθητική αλλαγή */
+#stepMatch #sailResults .member {
+  background:#e4f4f9;
+  border:2px solid #63a9cb;
+  border-left:6px solid #116e9c;
+  border-radius:10px;
+  padding:14px 16px;
+  gap:14px;
+}
+#stepMatch #sailResults .member > div:first-child {
+  color:#124b70;
+  font-size:19px;
+  font-weight:800;
+  line-height:1.5;
+}
+@media(max-width:640px){
+  #stepMatch #sailResults .member {flex-direction:column;align-items:stretch;}
+  #stepMatch #sailResults .member button {width:100%;}
+}
+</style></head><body><main><header><img src="https://raw.githubusercontent.com/SailingRaceEntryFlow/logos/main/logo_EntryFlow_removebg-preview.png" alt="EntryFlow"><h1>ΑΛΛΑΓΗ ΠΛΗΡΩΜΑΤΟΣ</h1><b>__EVENT_TITLE__</b><div class="small">RegattaHub V5 · Υποψήφιο γενικό πρότυπο — όχι παραγωγή</div></header>
+<section id="start"><h2>Αλλαγή πληρώματος — βήμα προς βήμα</h2>
+<div id="stepSearch" class="panel"><div class="stepNumber">ΒΗΜΑ 1 ΑΠΟ 3</div><h3>Βρες το σκάφος σου</h3><label for="sailQuery">Αριθμός ιστίου</label><div class="row"><input id="sailQuery" inputmode="text" type="text" placeholder="π.χ. GRE-486" style="max-width:240px"><button id="findBoat" type="button">ΑΝΑΖΗΤΗΣΗ</button></div><p class="small">Γράψε τον αριθμό ιστίου και πάτησε Αναζήτηση.</p></div>
+<div id="stepMatch" class="panel hidden"><div class="stepNumber">ΒΗΜΑ 2 ΑΠΟ 3</div><h3>Επιβεβαίωσε το σκάφος</h3><div id="sailResults" role="status" aria-live="polite"></div><p class="small">Ο προσωπικός σύνδεσμος αποστέλλεται μόνο στο καταχωρισμένο email του κυβερνήτη.</p><button id="backSearch" class="alt" type="button">← ΑΛΛΗ ΑΝΑΖΗΤΗΣΗ</button></div>
+<div id="stepAccess" class="panel hidden"><div class="stepNumber">ΒΗΜΑ 3 ΑΠΟ 3</div><h3>Άνοιξε τον σύνδεσμο από το email σου</h3><p class="note">Άνοιξε το email του RegattaHub και πάτησε τον προσωπικό σύνδεσμο. Θα μεταφερθείς απευθείας στο πλήρωμα του σκάφους σου.</p><details><summary>Έχω ήδη τον προσωπικό σύνδεσμο — επικόλληση εδώ</summary><label for="link">Προσωπικός σύνδεσμος RegattaHub</label><input type="url" id="link" placeholder="Επικόλλησε τον προσωπικό σύνδεσμο" autocomplete="off" spellcheck="false"><div class="row"><button id="applyLink" type="button">ΑΝΟΙΓΜΑ ΣΥΜΜΕΤΟΧΗΣ</button></div></details><p class="small">Αν δεν ήρθε email, έλεγξε και τα ανεπιθύμητα.</p><button id="backMatch" class="alt" type="button">← ΠΙΣΩ ΣΤΟ ΣΚΑΦΟΣ</button></div>
+<div id="stepConsent" class="panel hidden"><div class="stepNumber">ΠΡΟΣΩΠΙΚΗ ΠΡΟΣΒΑΣΗ</div><h3>Επιβεβαίωση συμμετοχής</h3><div class="note" id="boatLabel">Φόρτωση προσωπικής συμμετοχής…</div><label class="agree"><input type="checkbox" id="terms"><span>Έχω διαβάσει και αποδέχομαι την <a target="_blank" rel="noopener noreferrer" href="https://docs.google.com/document/d/1_ThpUPcy-w1-D5hScVCcKZ2csmjs6_m-mIkEYNY9c5I/edit">Πολιτική Απορρήτου</a> και τους <a target="_blank" rel="noopener noreferrer" href="https://docs.google.com/document/d/1Btn0eMNSZotVyH3n7RETC3ur8lZ4V_2I/edit">Όρους Χρήσης</a>.</span></label><div class="row"><button id="continue" disabled>ΣΥΝΕΧΕΙΑ ΣΤΗΝ ΑΛΛΑΓΗ ΠΛΗΡΩΜΑΤΟΣ</button></div></div>
+<div id="startStatus" role="status" aria-live="polite"></div>
+<button id="demo" class="alt hidden" type="button" disabled aria-hidden="true">Δοκιμή εμφάνισης φόρμας</button>
+</section>
+<section id="editor" class="hidden"><div class="note" id="boatDetails"></div><h2 style="margin-top:18px">Τροποποίηση πληρώματος</h2><p class="small">Επιτρέπονται δελτία χωρίς έλεγχο εγκυρότητας. Ο έλεγχος ΕΙΟ γίνεται χωριστά· η καταχώριση δεν σημαίνει ότι το δελτίο είναι ενεργό.</p><div class="panel"><h3>Κυβερνήτης / υπεύθυνος συμμετοχής</h3><div id="captain"></div></div><div class="panel"><h3>Δεύτερος κυβερνήτης</h3><div id="secondCurrent"></div><div class="row"><button id="toggleSecond" class="alt">Προσθήκη ή αλλαγή δεύτερου κυβερνήτη</button></div><div class="cols hidden" id="secondFields"><div><label>Αρ. δελτίου</label><input id="secondCard" type="text" inputmode="numeric"></div><div><label>Ονοματεπώνυμο</label><input id="secondName" type="text"></div><div><label>Όμιλος</label><input id="secondClub" type="text"></div></div></div><div class="panel"><h3>Μέλη πληρώματος</h3><div id="members"></div><h3 style="margin-top:20px">Προσθήκη νέου μέλους</h3><div class="cols"><div><label>Αριθμός δελτίου</label><input id="addCard" inputmode="numeric" type="text" placeholder="Αρ. δελτίου"></div><div><label>Ονοματεπώνυμο (προαιρετικό)</label><input id="addName" type="text" placeholder="Όνομα"></div><div><label>Όμιλος (προαιρετικό)</label><input id="addClub" type="text" placeholder="Όμιλος"></div></div><div class="row"><button id="addMember">+ ΠΡΟΣΘΗΚΗ ΜΕΛΟΥΣ</button></div><p class="small">Μέγιστο 15 δελτία συνολικά, με κυβερνήτες. Δεν επιτρέπονται διπλά δελτία.</p></div><div class="panel"><h3>Εξοικειωμένα μέλη WS OSR 6.05.3</h3><div class="cols2"><div><label>Μέλος 1</label><select id="osr1"></select></div><div><label>Μέλος 2</label><select id="osr2"></select></div></div></div><p role="status" id="editStatus"></p><div class="row"><button id="review">ΕΛΕΓΧΟΣ ΚΑΙ ΣΥΝΕΧΕΙΑ</button><button id="back" class="alt">ΠΙΣΩ</button></div></section>
+<section id="summary" class="hidden"><h2>Επιβεβαίωση αλλαγών πληρώματος</h2><div class="note" id="saveNotice">Οι αλλαγές είναι έτοιμες. Πατήστε ΑΠΟΘΗΚΕΥΣΗ για να σταλούν στην ίδια συμμετοχή Jotform και στην ουρά ΕΙΟ.</div><pre id="changePreview"></pre><div class="row"><button id="saveChanges" type="button">ΑΠΟΘΗΚΕΥΣΗ ΣΤΗΝ ΙΔΙΑ ΣΥΜΜΕΤΟΧΗ</button><button id="startAnother" type="button" class="alt hidden">ΝΕΑ ΑΛΛΑΓΗ — ΑΝΑΝΕΩΣΗ</button><button id="copy">ΑΝΤΙΓΡΑΦΗ ΑΛΛΑΓΩΝ</button><button id="editAgain" class="alt">ΠΙΣΩ ΣΤΗ ΦΟΡΜΑ</button></div><div class="panel hidden" id="manualFallback"><h3>Εναλλακτική: ίδια συμμετοχή Jotform</h3><p>Ανοίξτε τον προσωπικό σύνδεσμο από τη στήλη X «Submission Edit URL» της συμμετοχής σας. Ενημερώστε εκεί το πλήρωμα και πατήστε Υποβολή. Ο σύνδεσμος πρέπει να αντιστοιχεί στο ίδιο Submission ID.</p><label for="editLink">Προσωπικός σύνδεσμος Jotform Edit</label><input id="editLink" type="url" autocomplete="off" spellcheck="false" placeholder="https://www.jotform.com/edit/..."><div class="row"><button id="openEdit">ΑΝΟΙΓΜΑ ΤΗΣ ΙΔΙΑΣ JOTFORM</button></div><p id="linkStatus" role="status"></p></div></section>
+</main><footer>© RegattaHub / EntryFlow · __EVENT_TITLE__ · V5 Candidate</footer>
+<script>
+"use strict";
+const RHV5_CONFIG=Object.freeze({eventTitle:"__EVENT_TITLE__",repoSlug:"__RACE_REPO__",bridgeUrl:"__BOAT_LOOKUP_URL__",bridgeMessageApp:"__CREW_BRIDGE_MESSAGE_APP__"});
+const URL_LOOKUP=RHV5_CONFIG.bridgeUrl;
+const RHV5_CONFIG_READY=/^https:\/\/script\.google\.com\/macros\/s\/[^/?#]+\/exec$/.test(URL_LOOKUP)&&/^[a-z0-9][a-z0-9-]*$/.test(RHV5_CONFIG.repoSlug)&&!RHV5_CONFIG.eventTitle.startsWith("__")&&!RHV5_CONFIG.bridgeMessageApp.startsWith("__");
+function RHV5_requireConfig(){if(!RHV5_CONFIG_READY)throw Error("Η νέα φόρμα δεν έχει ακόμη συνδεθεί με τον Wizard και το αντίστοιχο Bridge. Δεν αποστέλλονται δεδομένα.");}
+const $=id=>document.getElementById(id);
+const state={data:null,demo:false,members:[],before:[],captain:null,second:null,preview:""};
+function msg(id,value,bad=false){const e=$(id);e.textContent=value;e.className=bad?"bad":"good";}
+function stage(name){for(const id of ["stepSearch","stepMatch","stepAccess","stepConsent"])$(id).classList.toggle("hidden",id!==name);}
+function make(tag,content,cls){const e=document.createElement(tag);e.textContent=content;if(cls)e.className=cls;return e;}
+function getAuth(){const p=new URLSearchParams(location.hash.slice(1)),id=p.get("submissionId"),token=p.get("editToken");return /^\d{10,22}$/.test(id||"")&&/^[a-f0-9]{64}$/.test(token||"")?{id,token}:null;}
+function applyLink(){try{const u=new URL($("link").value.trim());if(u.protocol!=="https:"||u.hostname!=="regattahub.github.io"||u.pathname!==("/"+RHV5_CONFIG.repoSlug+"/crew_change.html"))throw Error("Απαιτείται ο προσωπικός σύνδεσμος του συγκεκριμένου αγώνα.");let id,token;const x=u.searchParams.get("entry");if(x){const m=/^(\d{10,22})\.([a-f0-9]{64})$/.exec(x);if(!m)throw Error("Μη έγκυρος προσωπικός σύνδεσμος.");id=m[1];token=m[2];}else{const p=new URLSearchParams(u.hash.slice(1));id=p.get("submissionId");token=p.get("editToken");}if(!/^\d{10,22}$/.test(id||"")||!/^[a-f0-9]{64}$/.test(token||""))throw Error("Ο σύνδεσμος δεν περιέχει έγκυρη προσωπική πρόσβαση.");location.assign(location.pathname+"?entry="+encodeURIComponent(id+"."+token));}catch(e){msg("startStatus",e.message,true);}}
+function loadJsonp(url){RHV5_requireConfig();return new Promise((resolve,reject)=>{const id="rhv7_"+Date.now()+"_"+Math.random().toString(36).slice(2),rid=id+"_id";url+=(url.includes("?")?"&":"?")+"callback="+encodeURIComponent(id)+"&_="+Date.now();let frame=null,script=null,done=false;const timer=setTimeout(()=>finish(Error("Η αναζήτηση άργησε να απαντήσει.")),16000);function clean(){clearTimeout(timer);window.removeEventListener("message",onMessage);if(frame)frame.remove();if(script)script.remove();try{delete window[id];}catch(_){window[id]=undefined;}}function finish(err,data){if(done)return;done=true;clean();err?reject(err):resolve(data);}function onMessage(e){if(!frame||e.source!==frame.contentWindow)return;const data=e.data;if(!data||data.rid!==rid)return;data.error?finish(Error("Σφάλμα επικοινωνίας με Google.")):finish(null,data.payload);}
+if("credentialless" in document.createElement("iframe")){frame=document.createElement("iframe");frame.credentialless=true;frame.setAttribute("sandbox","allow-scripts");frame.setAttribute("aria-hidden","true");frame.tabIndex=-1;frame.style.cssText="position:absolute;visibility:hidden;width:0;height:0;border:0";const safe=x=>JSON.stringify(x).replace(/</g,"\\u003c");frame.srcdoc='<!doctype html><meta charset="utf-8"><script>window['+safe(id)+']=function(v){parent.postMessage({rid:'+safe(rid)+',payload:v},'+safe(location.origin)+');};var s=document.createElement("script");s.src='+safe(url)+';s.onerror=function(){parent.postMessage({rid:'+safe(rid)+',error:true},'+safe(location.origin)+');};document.head.appendChild(s);<\/script>';window.addEventListener("message",onMessage);document.body.appendChild(frame);}else{window[id]=x=>finish(null,x);script=document.createElement("script");script.src=url;script.referrerPolicy="no-referrer";script.onerror=()=>finish(Error("Αδυναμία σύνδεσης."));document.head.appendChild(script);}});}
+async function lookup(){const a=getAuth();if(!a){stage("stepSearch");return;}stage("stepConsent");$("boatLabel").textContent="Φόρτωση προσωπικής συμμετοχής…";try{const u=URL_LOOKUP+"?action=submissionLookup&submissionId="+encodeURIComponent(a.id)+"&editToken="+encodeURIComponent(a.token),r=await loadJsonp(u);if(!r||!r.ok||!r.found||r.multiple||!r.data||String(r.data.submission_id||"")!==a.id||r.data.access_mode!=="READ_ONLY")throw Error("Η προσωπική πρόσβαση δεν επαληθεύτηκε.");state.data=r.data;state.demo=false;$("boatLabel").textContent="Συμμετοχή: "+String(r.data.yacht_name||"Σκάφος")+" — "+String(r.data.sail_letters||"GRE-")+String(r.data.sail_number||"");$("continue").disabled=false;msg("startStatus","Η συμμετοχή φορτώθηκε. Αποδεχτείτε τους όρους και συνεχίστε.");}catch(e){$("boatLabel").textContent="Δεν φορτώθηκε η συμμετοχή.";msg("startStatus",e.message,true);}}
+function demo(){state.demo=true;state.data={yacht_name:"ΔΟΚΙΜΑΣΤΙΚΟ ΣΚΑΦΟΣ",sail_letters:"GRE-",sail_number:"0000",submission_id:"",captain_name:"ΔΟΚΙΜΑΣΤΙΚΟΣ ΚΥΒΕΡΝΗΤΗΣ",captain_card:"900001",captain_club:"ΔΟΚΙΜΗ",crew_members:[{card:"900002",name:"ΔΟΚΙΜΑΣΤΙΚΟ ΜΕΛΟΣ 1",club:"ΔΟΚΙΜΗ"},{card:"900003",name:"ΔΟΚΙΜΑΣΤΙΚΟ ΜΕΛΟΣ 2",club:"ΔΟΚΙΜΗ"}]};$("boatLabel").textContent="Δοκιμή φόρμας με συνθετικά στοιχεία. Δεν είναι πραγματική συμμετοχή.";$("continue").disabled=false;msg("startStatus","Τα δοκιμαστικά στοιχεία φορτώθηκαν.");}
+function norm(m){return{card:String(m?.card||m?.athlete_card||m?.athleteCard||"").trim(),name:String(m?.name||m?.full_name||"").trim(),club:String(m?.club||"").trim()};}
+function crew(data){let src=data.crew_members||data.crewMembers||data.crew_json_after||data.crew_json_before||data.crew_json||data.crew_preview||[];if(typeof src==="string"){try{const v=JSON.parse(src);if(Array.isArray(v))src=v;}catch(_){}}if(Array.isArray(src))return src.map(norm).filter(x=>x.card);let a=[];String(src||"").split(/\r?\n/).forEach(line=>{const m=line.match(/(?:^|\s)(\d{3,12})(?:\s|$)/);if(m)a.push({card:m[1],name:line.slice(0,m.index).replace(/^\s*\d{1,2}\s+/,"").trim(),club:""});});return a;}
+function show(){if(!state.data)return;if(!$("terms").checked){msg("startStatus","Αποδεχτείτε πρώτα τους όρους.",true);return;}const d=state.data;state.captain={name:String(d.captain_name||""),card:String(d.captain_card||""),club:String(d.captain_club||d.skipper_club||"")};state.second=d.second_captain_card?{name:String(d.second_captain_name||""),card:String(d.second_captain_card),club:String(d.second_captain_club||"")}:null;state.members=crew(d);state.before=state.members.map(x=>({...x}));$("start").classList.add("hidden");$("editor").classList.remove("hidden");$("boatDetails").textContent=String(d.yacht_name||"Σκάφος")+" — "+String(d.sail_letters||"GRE-")+String(d.sail_number||"")+" · "+(d.submission_id||"ΔΟΚΙΜΗ");render();}
+function count(){return 1+(state.second?.card?1:0)+state.members.length;}
+function render(){const c=state.captain;$("captain").textContent=(c.name||"—")+" — Δελτίο: "+(c.card||"—")+" — "+(c.club||"—");const sec=$("secondCurrent");sec.replaceChildren();if(state.second){sec.append(make("p",state.second.name+" — "+state.second.card+" — "+state.second.club));const b=make("button","ΑΦΑΙΡΕΣΗ ΔΕΥΤΕΡΟΥ ΚΥΒΕΡΝΗΤΗ","danger");b.onclick=()=>{state.second=null;render();};sec.append(b);}else sec.append(make("p","Δεν έχει δηλωθεί δεύτερος κυβερνήτης.","small"));const root=$("members");root.replaceChildren();state.members.forEach((m,i)=>{const box=make("div","","member"),info=make("div","");info.append(make("div",(i+1)+". "+(m.name||"Όνομα σε εκκρεμότητα"),"name"));info.append(make("div","Δελτίο "+m.card+" · "+(m.club||"Όμιλος σε εκκρεμότητα"),"small"));box.append(info);const b=make("button","ΑΦΑΙΡΕΣΗ","danger");b.onclick=()=>{state.members.splice(i,1);render();};box.append(b);root.append(box);});if(!state.members.length)root.append(make("p","Δεν έχουν δηλωθεί μέλη.","small"));const options=[c,...(state.second?[state.second]:[]),...state.members].filter(x=>x?.card);for(const id of ["osr1","osr2"]){const e=$(id),prior=e.value;e.replaceChildren(new Option("Επιλέξτε",""));for(const x of options)e.add(new Option((x.name||"Δελτίο "+x.card)+" — "+x.card,x.card));if(options.some(x=>x.card===prior))e.value=prior;}$("editStatus").textContent="";}
+function add(){const card=$("addCard").value.trim();if(!/^\d{3,12}$/.test(card)){msg("editStatus","Συμπληρώστε αριθμό δελτίου 3–12 ψηφίων.",true);return;}if([state.captain.card,state.second?.card,...state.members.map(x=>x.card)].includes(card)){msg("editStatus","Το δελτίο είναι ήδη δηλωμένο.",true);return;}if(count()>=15){msg("editStatus","Μέγιστο 15 δελτία συνολικά.",true);return;}state.members.push({card,name:$("addName").value.trim(),club:$("addClub").value.trim()});for(const id of ["addCard","addName","addClub"])$(id).value="";render();msg("editStatus","Το μέλος προστέθηκε στη φόρμα, χωρίς έλεγχο ΕΙΟ.");}
+function next(){if(!$("secondFields").classList.contains("hidden")){const x=$("secondCard").value.trim();if(x&&!/^\d{3,12}$/.test(x)){msg("editStatus","Λανθασμένο δελτίο δεύτερου κυβερνήτη.",true);return;}state.second=x?{card:x,name:$("secondName").value.trim(),club:$("secondClub").value.trim()}:null;}if(!/^\d{3,12}$/.test(state.captain.card)){msg("editStatus","Δεν υπάρχει έγκυρος αριθμός κυβερνήτη.",true);return;}if(!state.members.length){msg("editStatus","Προσθέστε τουλάχιστον ένα μέλος πληρώματος.",true);return;}if(count()>15){msg("editStatus","Πάνω από 15 δελτία.",true);return;}const cards=[state.captain.card,...(state.second?[state.second.card]:[]),...state.members.map(m=>m.card)];if(new Set(cards).size!==cards.length){msg("editStatus","Υπάρχουν διπλά δελτία.",true);return;}const o1=$("osr1").value,o2=$("osr2").value;if((o1&&!o2)||(!o1&&o2)||(o1&&o1===o2)){msg("editStatus","Επιλέξτε δύο διαφορετικά μέλη WS OSR ή αφήστε και τα δύο κενά.",true);return;}const d=state.data,removed=state.before.filter(x=>!state.members.some(y=>x.card===y.card)),added=state.members.filter(x=>!state.before.some(y=>x.card===y.card));const output={race:RHV5_CONFIG.eventTitle,boat:d.yacht_name,submissionId:d.submission_id||"DEMO",captain:state.captain,secondCaptain:state.second,crew:state.members,added,removed,wosr:[o1,o2].filter(Boolean),savedToJotform:false};state.preview=JSON.stringify(output,null,2);$("changePreview").textContent="Σκάφος: "+output.boat+" · "+output.submissionId+"\n\nΠροσθήκες: "+(added.map(x=>x.card+" "+x.name).join("; ")||"Καμία")+"\nΑφαιρέσεις: "+(removed.map(x=>x.card+" "+x.name).join("; ")||"Καμία")+"\n\nΤελικό πλήρωμα:\n"+state.members.map((x,i)=>(i+1)+". "+x.card+" — "+x.name+" — "+x.club).join("\n")+"\n\nΕκκρεμεί αποθήκευση στην ίδια υποβολή Jotform.";$("editor").classList.add("hidden");$("summary").classList.remove("hidden");$("summary").scrollIntoView({behavior:"smooth"});}
+function openEdit(){try{if(state.demo)throw Error("Η δοκιμή εμφάνισης δεν συνδέεται με Jotform.");const u=new URL($("editLink").value.trim()),m=u.pathname.match(/^\/edit\/(\d+)\/?$/);if(u.protocol!=="https:"||!/(^|\.)jotform\.com$/.test(u.hostname)||!m||m[1]!==String(state.data.submission_id))throw Error("Το Edit URL δεν αντιστοιχεί στη συμμετοχή.");window.open(u.href,"_blank","noopener,noreferrer");msg("linkStatus","Η ίδια συμμετοχή άνοιξε στη Jotform. Μεταφέρετε εκεί τις αλλαγές και υποβάλετε.");}catch(e){msg("linkStatus",e.message,true);}}
+
+
+async function findBoatBySail(){
+  const raw=$("sailQuery").value.trim();
+  if(!/^(?:[A-Za-zΑ-Ωα-ω]{2,4}[-\s]?)?\d{1,8}$/.test(raw)){
+    msg("startStatus","Συμπληρώστε σωστό αριθμό ιστίου, π.χ. GRE-10.",true);return;
+  }
+  const sail=(raw.match(/\d+$/)||[])[0];
+  $("sailResults").textContent="Γίνεται αναζήτηση…";
+  try{
+    const r=await loadJsonp(URL_LOOKUP+'?action=sailLookup&sail='+encodeURIComponent(sail));
+    const matches=Array.isArray(r?.matches)?r.matches:[];
+    $("sailResults").replaceChildren();
+    if(!matches.length){msg("startStatus","Δεν βρέθηκε συμμετοχή. Ελέγξτε τον αριθμό ιστίου.",true);return;}stage("stepMatch");msg("startStatus","Βρέθηκε συμμετοχή. Επιλέξτε αποστολή προσωπικού συνδέσμου.");
+    matches.forEach(m=>{
+      const wrap=make('div','','member');
+      wrap.append(make('div',(m.yacht_name||'Σκάφος')+' — '+(m.sail_letters||'GRE-')+(m.sail_number||'')));
+      const b=make('button','ΑΠΟΣΤΟΛΗ ΠΡΟΣΩΠΙΚΟΥ ΣΥΝΔΕΣΜΟΥ');
+      b.type='button';b.onclick=async()=>{
+        b.disabled=true;b.textContent='Αποστολή αιτήματος…';
+        try{const response=await loadJsonp(URL_LOOKUP+'?action=requestLink&submissionId='+encodeURIComponent(m.submission_id));
+          if(response?.ok===false)throw Error(response?.message||'Η αποστολή δεν επιβεβαιώθηκε.');stage('stepAccess');msg('startStatus',response?.message||'Ελέγξτε το email της συμμετοχής.');
+        }catch(e){msg('startStatus','Δεν ολοκληρώθηκε το αίτημα αποστολής.',true)}
+        finally{b.disabled=false;b.textContent='ΑΠΟΣΤΟΛΗ ΠΡΟΣΩΠΙΚΟΥ ΣΥΝΔΕΣΜΟΥ';}
+      };
+      wrap.append(b);$("sailResults").append(wrap);
+    });
+  }catch(e){msg('startStatus','Η αναζήτηση δεν απάντησε. Βεβαιωθείτε ότι δημοσιεύτηκε ο νέος κώδικας Bridge.',true);}
+}
+function saveToJotform(){try{RHV5_requireConfig();}catch(err){msg('linkStatus',err.message,true);return;}
+  if(state.demo){msg('linkStatus','Η δοκιμή εμφάνισης δεν αποθηκεύει πραγματική συμμετοχή.',true);return;}
+  const auth=getAuth();if(!auth||!state.data?.revision){
+    msg('linkStatus','Η προσωπική συμμετοχή χρειάζεται επαναφόρτωση.',true);return;
+  }
+  const button=$("saveChanges");button.disabled=true;button.textContent='ΓΙΝΕΤΑΙ ΑΠΟΘΗΚΕΥΣΗ…';
+  $("saveNotice").textContent='Αποθήκευση στην ίδια Jotform και ενημέρωση ουράς ΕΙΟ…';
+  const payload={revision:state.data.revision,members:state.members,second:state.second,
+                 wosr:[$("osr1").value,$("osr2").value].filter(Boolean)};
+  let iframe=document.createElement('iframe'),form=document.createElement('form');
+  iframe.name='regattahub_v5_save_'+Date.now();iframe.style.display='none';iframe.setAttribute('aria-hidden','true');
+  document.body.append(iframe);
+  form.method='POST';form.target=iframe.name;form.action=URL_LOOKUP;form.style.display='none';
+  const fields={action:'updateCrew',submissionId:auth.id,editToken:auth.token,payload:JSON.stringify(payload)};
+  Object.entries(fields).forEach(([k,v])=>{const i=document.createElement('input');i.name=k;i.value=v;i.type='hidden';form.append(i);});
+  document.body.append(form);
+  let done=false;
+  let polling=false;
+  const poll=setInterval(async()=>{
+    if(done||polling)return;
+    polling=true;
+    try{
+      const url=URL_LOOKUP+'?action=saveStatus&submissionId='+encodeURIComponent(auth.id)+
+        '&editToken='+encodeURIComponent(auth.token)+'&revision='+encodeURIComponent(payload.revision);
+      const ack=await loadJsonp(url);
+      if(ack?.confirmed===true&&ack.updated===true&&String(ack.submissionId)===auth.id)
+        finish(ack);
+    }catch(_){ }finally{polling=false;}
+  },4500);
+  function clean(){window.removeEventListener('message',onMessage);clearTimeout(timer);clearInterval(poll);setTimeout(()=>{iframe.remove();form.remove()},2000);}
+  function finish(result){if(done)return;done=true;clean();button.disabled=false;button.textContent='ΑΠΟΘΗΚΕΥΣΗ ΣΤΗΝ ΙΔΙΑ ΣΥΜΜΕΤΟΧΗ';
+    if(result?.ok===true&&result.updated===true&&String(result.submissionId)===auth.id){
+      $("saveNotice").className='note';$("saveNotice").textContent='✓ Οι αλλαγές αποθηκεύτηκαν στην υπάρχουσα υποβολή Jotform. Νέα δελτία προς έλεγχο ΕΙΟ: '+result.queuedNewCards+'.';
+      button.disabled=true;state.data.revision=result.revision;
+      $("startAnother").classList.remove('hidden');
+      $("manualFallback").classList.add('hidden');
+    }else{
+      $("saveNotice").className='warn';$("saveNotice").textContent='Δεν επιβεβαιώθηκε πλήρως η αποθήκευση: '+String(result?.error||'Δεν έφτασε απάντηση από το Apps Script')+'. Ελέγξτε τη Jotform πριν επαναλάβετε.';
+      $("manualFallback").classList.remove('hidden');
+    }
+  }
+  function onMessage(e){
+    if(e.origin!=='https://script.google.com'&&!/^https:\/\/script\.googleusercontent\.com$/.test(e.origin))return;
+    if(e.data?.app!==RHV5_CONFIG.bridgeMessageApp)return;
+    finish(e.data.result);
+  }
+  window.addEventListener('message',onMessage);
+  const timer=setTimeout(()=>finish({error:'Δεν ήρθε επιβεβαίωση μέσα σε 35 δευτερόλεπτα'}),35000);
+  form.submit();
+}
+$("backSearch").onclick=()=>{stage("stepSearch");$("sailResults").replaceChildren();$("startStatus").textContent="";};
+$("backMatch").onclick=()=>stage("stepMatch");
+$("findBoat").onclick=findBoatBySail;
+$("sailQuery").addEventListener('keydown',e=>{if(e.key==='Enter')findBoatBySail()});
+$("saveChanges").onclick=saveToJotform;
+$("startAnother").onclick=()=>location.reload();
+
+
+$("applyLink").onclick=applyLink;$("demo").onclick=demo;$("continue").onclick=show;$("toggleSecond").onclick=()=>{const h=$("secondFields").classList.toggle("hidden");if(!h){$("secondCard").value=state.second?.card||"";$("secondName").value=state.second?.name||"";$("secondClub").value=state.second?.club||"";}};$("addMember").onclick=add;$("review").onclick=()=>{next();if(state.demo)$("saveChanges").disabled=true;};$("back").onclick=()=>{$("editor").classList.add("hidden");$("start").classList.remove("hidden");};$("copy").onclick=async()=>{try{await navigator.clipboard.writeText(state.preview);alert("Οι αλλαγές αντιγράφηκαν.");}catch(_){const t=document.createElement("textarea");t.value=state.preview;document.body.append(t);t.select();document.execCommand("copy");t.remove();alert("Οι αλλαγές αντιγράφηκαν.");}};$("editAgain").onclick=()=>{$("summary").classList.add("hidden");$("editor").classList.remove("hidden");};$("openEdit").onclick=openEdit;lookup();
+</script></body></html>
